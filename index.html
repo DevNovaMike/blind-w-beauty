@@ -4,31 +4,31 @@
   <meta charset="UTF-8" />
 
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Anthony's personal portfolio. A frontend developer in training passionate about responsive web design, JavaScript, and creating clean user interfaces." />
-  <meta name="keywords" content="Anthony, frontend developer, portfolio, HTML, CSS, JavaScript, web developer" />
-  <meta name="author" content="Anthony" />
+  <meta name="description" content="Blind W Beauty - Nails, Hair & Beauty Studio offering premium self-care experiences." />
+  <meta name="keywords" content="Blind W Beauty, nails, hair, beauty salon, manicure, hairstyling, beauty studio" />
+  <meta name="author" content="Blind W Beauty" />
 
   <!-- Open Graph (Facebook, LinkedIn) -->
-  <meta property="og:title" content="Anthony's Portfolio" />
-  <meta property="og:description" content="Check out Anthony's frontend projects and contact him for collaboration." />
-  <meta property="og:image" content="https://via.placeholder.com/600x400.png?text=Anthony+Portfolio" />
+  <meta property="og:title" content="Blind W Beauty" />
+  <meta property="og:description" content="Luxury Nails, Hair & Beauty Services. Book your appointment today!" />
+  <meta property="og:image" content="https://via.placeholder.com/600x400.png?text=Blind+W+Beauty" />
   <meta property="og:url" content="https://yourdomain.com/" />
   <meta property="og:type" content="website" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Anthony's Portfolio" />
-  <meta name="twitter:description" content="Frontend Developer in training. Clean, responsive websites and cool JavaScript features." />
-  <meta name="twitter:image" content="https://via.placeholder.com/600x400.png?text=Anthony+Portfolio" />
+  <meta name="twitter:title" content="Blind W Beauty" />
+  <meta name="twitter:description" content="Your destination for Nails, Hair & Beauty." />
+  <meta name="twitter:image" content="https://via.placeholder.com/600x400.png?text=Blind+W+Beauty" />
 
-  <title>Anthony's Portfolio</title>
+  <title>Blind W Beauty</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Font Awesome for social icons -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
   <!-- External CSS -->
   <link rel="stylesheet" href="style.css" />
@@ -39,57 +39,67 @@
 <body>
 
   <header>
-    <img src="profile.jpg" onerror="this.src='https://via.placeholder.com/120'" alt="Profile Photo" class="avatar" />
-    <h1>Hello, I'm Anthony</h1>
-    <p>Frontend Developer in training 👨‍💻</p>
+    <img src="logo.jpg" onerror="this.src='https://via.placeholder.com/120?text=Blind+W+Beauty'" alt="Salon Logo" class="avatar" />
+    <h1>Blind W Beauty</h1>
+    <p>Luxury Nails, Hair & Beauty Studio 💅💇‍♀️</p>
     <button onclick="toggleDarkMode()">Dark Mode 🌙</button>
   </header>
 
   <section id="about" class="hidden">
-    <h2>About Me</h2>
+    <h2>About Us</h2>
     <p>
-      Hi, I'm Anthony — a passionate frontend developer in training. I enjoy creating clean, responsive websites and learning new web technologies every day. Thanks for stopping by!
+      Welcome to <strong>Blind W Beauty</strong> — where elegance meets creativity. 
+      We specialize in high-end nail art, custom hair styling, and personalized beauty services 
+      designed to help you look and feel your absolute best.
     </p>
   </section>
 
   <section id="portfolio" class="hidden">
-    <h2>My Projects</h2>
+    <h2>Our Services</h2>
     <div class="projects">
       <div class="project-card">
-        <h3>Project One</h3>
-        <p>A simple HTML/CSS website showcasing responsive design.</p>
+        <i class="fa-solid fa-hand-sparkles"></i>
+        <h3>Manicures & Nail Art</h3>
+        <p>From classic elegance to bold creative designs — every detail crafted to perfection.</p>
       </div>
       <div class="project-card">
-        <h3>Project Two</h3>
-        <p>JavaScript form with email alerts and Google Sheets integration.</p>
+        <i class="fa-solid fa-scissors"></i>
+        <h3>Hair Styling & Coloring</h3>
+        <p>Transform your look with expert cuts, vibrant colors, and nourishing treatments.</p>
       </div>
       <div class="project-card">
-        <h3>Project Three</h3>
-        <p>Dark/light mode toggle with saved user preference using localStorage.</p>
+        <i class="fa-solid fa-face-smile-beam"></i>
+        <h3>Beauty Packages</h3>
+        <p>Book a full glam session — nails, hair, and beauty treatments all in one place.</p>
       </div>
     </div>
   </section>
 
   <section id="contact" class="hidden">
-    <h2>Contact Me</h2>
+    <h2>Book an Appointment</h2>
     <form id="contactForm">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit" disabled>Send</button>
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="email" name="email" placeholder="Your Email or Phone" required />
+      <textarea name="message" placeholder="Preferred date, time, and service details" required></textarea>
+      <button type="submit" disabled>Book Now</button>
     </form>
   </section>
 
   <footer>
-    <p>© 2025 Anthony. All rights reserved.</p>
+    <p>© 2025 Blind W Beauty. All rights reserved.</p>
     <div class="social-icons">
-      <a href="https://discord.com/users/763788100458774549" target="_blank" aria-label="Discord">
-        <i class="fab fa-discord"></i>
+      <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="https://wa.me/" target="_blank" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
       </a>
     </div>
   </footer>
 
-  <!-- External JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
