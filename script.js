@@ -19,22 +19,11 @@ window.addEventListener("DOMContentLoaded", () => {
     if (btn) btn.textContent = "Light Mode ☀️";
   }
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-        observer.unobserve(entry.target);
-      }
-    });
-  });
-
-  document.querySelectorAll(".hidden").forEach(el => {
-    observer.observe(el);
-    el.classList.add("show");
-  });
+  // Reveal sections
+  document.querySelectorAll(".hidden").forEach(el => el.classList.add("show"));
 
   // -----------------------------
-  // Contact / Appointment Form
+  // Appointment Form
   // -----------------------------
   const form = document.getElementById("contactForm");
   const button = form.querySelector("button[type='submit']");
@@ -48,11 +37,13 @@ window.addEventListener("DOMContentLoaded", () => {
     button.disabled = true;
     button.textContent = "Booking...";
 
-    const formData = new FormData(form);
-    const params = new URLSearchParams();
-    for (const [key, value] of formData.entries()) {
-      params.append(key, value.trim());
-    }
+    // Build JSON object instead of URL params
+    const formData = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      phone: form.phone.value.trim(),
+      message: form.message.value.trim(),
+    };
 
     try {
       const response = await fetch(
@@ -60,22 +51,16 @@ window.addEventListener("DOMContentLoaded", () => {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded", // ✅ ensures textarea is sent correctly
+            "Content-Type": "application/json", // ✅ JSON instead of urlencoded
           },
-          body: params.toString(),
+          body: JSON.stringify(formData),
         }
       );
 
       const rawText = await response.text();
       console.log("Server response:", rawText);
 
-      let result;
-      try {
-        result = JSON.parse(rawText);
-      } catch {
-        throw new Error("Unexpected response format — check console log.");
-      }
-
+      const result = JSON.parse(rawText);
       if (result.result === "success") {
         Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
         form.reset();
