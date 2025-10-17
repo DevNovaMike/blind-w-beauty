@@ -46,7 +46,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(
-        // 👇 Replace this URL with your new "Appointment Messages" Google Apps Script Web App URL
+        https://script.google.com/macros/s/AKfycbzn2KOH4u6mnnJWfpyZk88SEQh3Kx1cAb_zg0E4QXdBzHk2D8FGQkvqcPN7JCVInTnW/exec
         "YOUR_NEW_APPOINTMENT_SCRIPT_URL_HERE",
         {
           method: "POST",
