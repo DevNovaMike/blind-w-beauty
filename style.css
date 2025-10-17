@@ -1,0 +1,68 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f0f0f0;
+  color: #333;
+}
+h1 {
+  color: #007bff;
+}
+button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #218838;
+}
+#about {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+#about img {
+  border-radius: 50%;
+  margin-top: 10px;
+}
+#contact {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+#contact input,
+#contact textarea {
+  width: 80%;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+#contact button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.dark-mode {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+}
+
+.dark-mode button,
+.dark-mode input,
+.dark-mode textarea {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+
