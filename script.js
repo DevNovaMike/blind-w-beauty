@@ -1,3 +1,6 @@
+// -----------------------------
+// Dark Mode Toggle
+// -----------------------------
 function toggleDarkMode() {
   const isDark = document.body.classList.toggle("dark-mode");
   localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
@@ -6,9 +9,12 @@ function toggleDarkMode() {
   if (btn) btn.textContent = isDark ? "Light Mode ☀️" : "Dark Mode 🌙";
 }
 
+// -----------------------------
+// Initialize on DOM Content Loaded
+// -----------------------------
 window.addEventListener("DOMContentLoaded", () => {
-  const darkModeSetting = localStorage.getItem("darkMode");
-  if (darkModeSetting === "enabled") {
+  // Apply dark mode immediately to avoid flash
+  if (localStorage.getItem("darkMode") === "enabled") {
     document.body.classList.add("dark-mode");
     const btn = document.querySelector('button[onclick="toggleDarkMode()"]');
     if (btn) btn.textContent = "Light Mode ☀️";
@@ -24,19 +30,24 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Observe all hidden elements and force show to prevent invisible content
   document.querySelectorAll(".hidden").forEach(el => {
     observer.observe(el);
-    el.classList.add("show"); // ✅ Force show immediately so content is visible
+    el.classList.add("show"); // ✅ Force show immediately
   });
 
+  // -----------------------------
   // Contact / Appointment Form
+  // -----------------------------
   const form = document.getElementById("contactForm");
   const button = form.querySelector("button[type='submit']");
 
+  // Enable/disable button based on form validity
   form.addEventListener("input", () => {
     button.disabled = !form.checkValidity();
   });
 
+  // Handle form submission
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     button.disabled = true;
@@ -50,7 +61,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/YOUR_APPOINTMENT_SCRIPT_ID/exec", // ✅ Use your Appointment Messages script URL
+        "https://script.google.com/macros/s/AKfycbzn2KOH4u6mnnJWfpyZk88SEQh3Kx1cAb_zg0E4QXdBzHk2D8FGQkvqcPN7JCVInTnW/exec", // ✅ Your deployed Appointment Messages URL
         {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
