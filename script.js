@@ -14,7 +14,6 @@ window.addEventListener("DOMContentLoaded", () => {
     if (btn) btn.textContent = "Light Mode ☀️";
   }
 
-  // Animation observer
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -25,20 +24,17 @@ window.addEventListener("DOMContentLoaded", () => {
   });
   document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
 
-  // Contact form
   const form = document.getElementById("contactForm");
   const button = form.querySelector("button[type='submit']");
 
-  // Enable/disable send button
   form.addEventListener("input", () => {
     button.disabled = !form.checkValidity();
   });
 
-  // Handle submit
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     button.disabled = true;
-    button.textContent = "Sending...";
+    button.textContent = "Booking...";
 
     const formData = new FormData(form);
     const params = new URLSearchParams();
@@ -67,7 +63,7 @@ window.addEventListener("DOMContentLoaded", () => {
       }
 
       if (result.result === "success") {
-        Swal.fire("✅ Success", "Message sent successfully!", "success");
+        Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
         form.reset();
       } else {
         throw new Error(result.message || "Server rejected the submission.");
@@ -77,7 +73,7 @@ window.addEventListener("DOMContentLoaded", () => {
       Swal.fire("❌ Oops", "Something went wrong — please try again.", "error");
     } finally {
       button.disabled = false;
-      button.textContent = "Send";
+      button.textContent = "Book Now";
     }
   });
 });
