@@ -13,14 +13,12 @@ function toggleDarkMode() {
 // Initialize on DOM Content Loaded
 // -----------------------------
 window.addEventListener("DOMContentLoaded", () => {
-  // Apply dark mode immediately to avoid flash
   if (localStorage.getItem("darkMode") === "enabled") {
     document.body.classList.add("dark-mode");
     const btn = document.querySelector('button[onclick="toggleDarkMode()"]');
     if (btn) btn.textContent = "Light Mode ☀️";
   }
 
-  // Smooth fade-in animations
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -32,7 +30,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll(".hidden").forEach(el => {
     observer.observe(el);
-    el.classList.add("show"); // Force show immediately
+    el.classList.add("show");
   });
 
   // -----------------------------
@@ -51,16 +49,20 @@ window.addEventListener("DOMContentLoaded", () => {
     button.textContent = "Booking...";
 
     const formData = new FormData(form);
+
+    // ✅ Explicitly send all fields, even if empty
     const params = new URLSearchParams();
-    for (const [key, value] of formData.entries()) {
-      params.append(key, value);
-    }
+    params.append("name", formData.get("name") || "");
+    params.append("email", formData.get("email") || "");
+    params.append("phone", formData.get("phone") || "");
+    params.append("message", formData.get("message") || "");
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbzn2KOH4u6mnnJWfpyZk88SEQh3Kx1cAb_zg0E4QXdBzHk2D8FGQkvqcPN7JCVInTnW/exec", // ✅ Appointment Messages URL
+        "https://script.google.com/macros/s/AKfycbzn2KOH4u6mnnJWfpyZk88SEQh3Kx1cAb_zg0E4QXdBzHk2D8FGQkvqcPN7JCVInTnW/exec",
         {
           method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: params.toString(),
         }
       );
