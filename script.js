@@ -30,10 +30,9 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Observe all hidden elements and force show to prevent invisible content
   document.querySelectorAll(".hidden").forEach(el => {
     observer.observe(el);
-    el.classList.add("show"); // ✅ Force show immediately
+    el.classList.add("show"); // Force show immediately
   });
 
   // -----------------------------
@@ -42,12 +41,10 @@ window.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   const button = form.querySelector("button[type='submit']");
 
-  // Enable/disable button based on form validity
   form.addEventListener("input", () => {
     button.disabled = !form.checkValidity();
   });
 
-  // Handle form submission
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     button.disabled = true;
@@ -61,10 +58,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbzn2KOH4u6mnnJWfpyZk88SEQh3Kx1cAb_zg0E4QXdBzHk2D8FGQkvqcPN7JCVInTnW/exec", // ✅ Your deployed Appointment Messages URL
+        "https://script.google.com/macros/s/AKfycbzn2KOH4u6mnnJWfpyZk88SEQh3Kx1cAb_zg0E4QXdBzHk2D8FGQkvqcPN7JCVInTnW/exec", // ✅ Appointment Messages URL
         {
           method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: params.toString(),
         }
       );
