@@ -23,7 +23,11 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-  document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+
+  document.querySelectorAll(".hidden").forEach(el => {
+    observer.observe(el);
+    el.classList.add("show"); // ✅ Force show immediately so content is visible
+  });
 
   // Contact / Appointment Form
   const form = document.getElementById("contactForm");
@@ -46,8 +50,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(
-       https://script.google.com/macros/s/AKfycbzn2KOH4u6mnnJWfpyZk88SEQh3Kx1cAb_zg0E4QXdBzHk2D8FGQkvqcPN7JCVInTnW/exec
-        "YOUR_NEW_APPOINTMENT_SCRIPT_URL_HERE",
+        "https://script.google.com/macros/s/YOUR_APPOINTMENT_SCRIPT_ID/exec", // ✅ Use your Appointment Messages script URL
         {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
