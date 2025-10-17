@@ -1,6 +1,6 @@
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0b0b0b, #2c003e);
+  background: linear-gradient(135deg, #1a001f, #3a0066);
   color: #f9f9f9;
   text-align: center;
   margin: 0;
@@ -34,9 +34,13 @@ h2 {
   letter-spacing: 1px;
 }
 
+p, h3 {
+  color: #ffffff;
+}
+
 button {
   padding: 10px 20px;
-  background-color: #6a0dad;
+  background-color: #9b4dff; /* lighter purple */
   border: none;
   color: white;
   border-radius: 30px;
@@ -62,7 +66,7 @@ button:hover:not(:disabled) {
   max-width: 700px;
   margin: 40px auto;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   border: 1px solid rgba(179, 0, 59, 0.4);
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -74,9 +78,9 @@ button:hover:not(:disabled) {
   padding: 12px;
   margin: 10px 0;
   font-size: 1rem;
-  border: 1px solid #6a0dad;
+  border: 1px solid #9b4dff;
   border-radius: 5px;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255,255,255,0.12);
   color: #fff;
 }
 
@@ -92,8 +96,8 @@ button:hover:not(:disabled) {
 }
 
 .project-card {
-  background-color: #1a001f;
-  border: 1px solid #6a0dad;
+  background-color: #230033;
+  border: 1px solid #9b4dff;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 0 15px rgba(179, 0, 59, 0.2);
@@ -111,6 +115,10 @@ button:hover:not(:disabled) {
   margin-bottom: 10px;
 }
 
+.project-card h3 {
+  color: #ffffff;
+}
+
 /* Dark Mode */
 .dark-mode {
   background: #0b0b0b;
@@ -122,8 +130,17 @@ button:hover:not(:disabled) {
 .dark-mode #portfolio,
 .dark-mode .project-card {
   background-color: #121212;
-  border: 1px solid #6a0dad;
+  border: 1px solid #9b4dff;
   color: #f0f0f0;
+}
+
+.dark-mode button {
+  background-color: #9b4dff;
+  color: #fff;
+}
+
+.dark-mode button:hover {
+  background-color: #b3003b;
 }
 
 /* Scroll animations */
@@ -173,5 +190,5 @@ footer {
 }
 
 .social-icons a:hover {
-  color: #6a0dad;
+  color: #9b4dff;
 }
