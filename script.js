@@ -49,20 +49,19 @@ window.addEventListener("DOMContentLoaded", () => {
     button.textContent = "Booking...";
 
     const formData = new FormData(form);
-
-    // ✅ Explicitly send all fields, even if empty
     const params = new URLSearchParams();
-    params.append("name", formData.get("name") || "");
-    params.append("email", formData.get("email") || "");
-    params.append("phone", formData.get("phone") || "");
-    params.append("message", formData.get("message") || "");
+    for (const [key, value] of formData.entries()) {
+      params.append(key, value.trim());
+    }
 
     try {
       const response = await fetch(
         "https://script.google.com/macros/s/AKfycbzn2KOH4u6mnnJWfpyZk88SEQh3Kx1cAb_zg0E4QXdBzHk2D8FGQkvqcPN7JCVInTnW/exec",
         {
           method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded", // ✅ ensures textarea is sent correctly
+          },
           body: params.toString(),
         }
       );
