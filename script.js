@@ -14,6 +14,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (btn) btn.textContent = "Light Mode ☀️";
   }
 
+  // Smooth fade-in animations
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -24,6 +25,7 @@ window.addEventListener("DOMContentLoaded", () => {
   });
   document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
 
+  // Contact / Appointment Form
   const form = document.getElementById("contactForm");
   const button = form.querySelector("button[type='submit']");
 
@@ -44,7 +46,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbzn2KOH4u6mnnJWfpyZk88SEQh3Kx1cAb_zg0E4QXdBzHk2D8FGQkvqcPN7JCVInTnW/exec", 
+        // 👇 Replace this URL with your new "Appointment Messages" Google Apps Script Web App URL
+        "YOUR_NEW_APPOINTMENT_SCRIPT_URL_HERE",
         {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
