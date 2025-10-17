@@ -1,7 +1,7 @@
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #f0f0f0;
-  color: #333;
+  background: linear-gradient(135deg, #0b0b0b, #2c003e);
+  color: #f9f9f9;
   text-align: center;
   margin: 0;
   padding: 0;
@@ -9,7 +9,7 @@ body {
 }
 
 header {
-  padding: 20px;
+  padding: 30px 20px;
 }
 
 .avatar {
@@ -18,21 +18,32 @@ header {
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 10px;
+  border: 3px solid #b3003b;
 }
 
 h1 {
-  color: #007bff;
+  font-family: 'Playfair Display', serif;
+  color: #b3003b;
+  margin-bottom: 5px;
+}
+
+h2 {
+  color: #b3003b;
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 button {
   padding: 10px 20px;
-  background-color: #28a745;
+  background-color: #6a0dad;
   border: none;
   color: white;
-  border-radius: 5px;
+  border-radius: 30px;
   cursor: pointer;
-  margin: 5px;
-  transition: background-color 0.3s ease;
+  margin-top: 10px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:disabled {
@@ -41,32 +52,39 @@ button:disabled {
 }
 
 button:hover:not(:disabled) {
-  background-color: #218838;
+  background-color: #b3003b;
+  transform: scale(1.05);
 }
 
 #about,
 #portfolio,
 #contact {
-  max-width: 600px;
+  max-width: 700px;
   margin: 40px auto;
   padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(179, 0, 59, 0.4);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 #contact input,
 #contact textarea {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
   font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid #6a0dad;
+  border-radius: 5px;
+  background-color: rgba(255,255,255,0.1);
+  color: #fff;
 }
 
-/* Projects layout */
+#contact textarea {
+  min-height: 100px;
+}
+
+/* Service Cards */
 .projects {
   display: flex;
   flex-direction: column;
@@ -74,42 +92,38 @@ button:hover:not(:disabled) {
 }
 
 .project-card {
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+  background-color: #1a001f;
+  border: 1px solid #6a0dad;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  box-shadow: 0 0 15px rgba(179, 0, 59, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(179, 0, 59, 0.4);
+}
+
+.project-card i {
+  font-size: 2rem;
+  color: #b3003b;
+  margin-bottom: 10px;
 }
 
 /* Dark Mode */
 .dark-mode {
-  background-color: #121212;
+  background: #0b0b0b;
   color: #f0f0f0;
-}
-
-.dark-mode header {
-  background-color: #1e1e1e;
 }
 
 .dark-mode #about,
 .dark-mode #contact,
 .dark-mode #portfolio,
 .dark-mode .project-card {
-  background-color: #2a2a2a;
+  background-color: #121212;
+  border: 1px solid #6a0dad;
   color: #f0f0f0;
-}
-
-.dark-mode button,
-.dark-mode input,
-.dark-mode textarea {
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #444;
 }
 
 /* Scroll animations */
@@ -124,46 +138,34 @@ button:hover:not(:disabled) {
   transform: translateY(0);
 }
 
-/* Responsive layout for laptops */
+/* Responsive layout */
 @media (min-width: 768px) {
   .projects {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
   }
-
   .project-card {
     flex: 1 1 250px;
     max-width: 300px;
   }
-
-  #about,
-  #portfolio,
-  #contact {
-    max-width: 900px;
-  }
 }
 
-/* ✅ Footer styles moved outside media query */
+/* Footer */
 footer {
   margin-top: 40px;
   padding: 20px;
-  background-color: #eee;
-  color: #333;
+  background-color: #0b0b0b;
+  color: #ccc;
   font-size: 0.9rem;
-  text-align: center;
 }
 
-.dark-mode footer {
-  background-color: #1e1e1e;
-  color: #ccc;
-}
 .social-icons {
   margin-top: 10px;
 }
 
 .social-icons a {
-  color: #5865F2; /* Discord brand color */
+  color: #b3003b;
   margin: 0 10px;
   font-size: 1.8rem;
   text-decoration: none;
@@ -171,13 +173,5 @@ footer {
 }
 
 .social-icons a:hover {
-  color: #4e5ed9;
-}
-
-.dark-mode .social-icons a {
-  color: #aab4ff;
-}
-
-.dark-mode .social-icons a:hover {
-  color: #7c8cff;
+  color: #6a0dad;
 }
