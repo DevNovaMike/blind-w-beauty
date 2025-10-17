@@ -1,13 +1,19 @@
+/* ===========================
+   BODY & GLOBAL STYLES
+   =========================== */
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #1a001f, #3a0066);
-  color: #f9f9f9;
+  background: linear-gradient(135deg, #1a001f, #3a0066); /* dark luxury gradient */
+  color: #ffffff; /* main text color */
   text-align: center;
   margin: 0;
   padding: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* ===========================
+   HEADER
+   =========================== */
 header {
   padding: 30px 20px;
 }
@@ -18,7 +24,7 @@ header {
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 10px;
-  border: 3px solid #b3003b;
+  border: 3px solid #b3003b; /* red accent */
 }
 
 h1 {
@@ -35,9 +41,12 @@ h2 {
 }
 
 p, h3 {
-  color: #ffffff;
+  color: #ffffff; /* main readable text */
 }
 
+/* ===========================
+   BUTTONS
+   =========================== */
 button {
   padding: 10px 20px;
   background-color: #9b4dff; /* lighter purple */
@@ -56,20 +65,24 @@ button:disabled {
 }
 
 button:hover:not(:disabled) {
-  background-color: #b3003b;
+  background-color: #b3003b; /* red hover */
   transform: scale(1.05);
 }
 
+/* ===========================
+   SECTIONS
+   =========================== */
 #about,
 #portfolio,
 #contact {
   max-width: 700px;
   margin: 40px auto;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.18); /* visible on dark gradient */
   border-radius: 10px;
-  border: 1px solid rgba(179, 0, 59, 0.4);
+  border: 1px solid rgba(179, 0, 59, 0.6); /* red border */
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  color: #ffffff; /* ensure text visible */
 }
 
 #contact input,
@@ -80,15 +93,17 @@ button:hover:not(:disabled) {
   font-size: 1rem;
   border: 1px solid #9b4dff;
   border-radius: 5px;
-  background-color: rgba(255,255,255,0.12);
-  color: #fff;
+  background-color: rgba(255,255,255,0.25); /* more visible on dark */
+  color: #000; /* typed text visible */
 }
 
 #contact textarea {
   min-height: 100px;
 }
 
-/* Service Cards */
+/* ===========================
+   SERVICE CARDS
+   =========================== */
 .projects {
   display: flex;
   flex-direction: column;
@@ -96,7 +111,7 @@ button:hover:not(:disabled) {
 }
 
 .project-card {
-  background-color: #230033;
+  background-color: #230033; /* dark purple */
   border: 1px solid #9b4dff;
   border-radius: 8px;
   padding: 20px;
@@ -111,15 +126,17 @@ button:hover:not(:disabled) {
 
 .project-card i {
   font-size: 2rem;
-  color: #b3003b;
+  color: #b3003b; /* red icon */
   margin-bottom: 10px;
 }
 
 .project-card h3 {
-  color: #ffffff;
+  color: #ffffff; /* ensure visible */
 }
 
-/* Dark Mode */
+/* ===========================
+   DARK MODE
+   =========================== */
 .dark-mode {
   background: #0b0b0b;
   color: #f0f0f0;
@@ -143,7 +160,9 @@ button:hover:not(:disabled) {
   background-color: #b3003b;
 }
 
-/* Scroll animations */
+/* ===========================
+   SCROLL ANIMATIONS
+   =========================== */
 .hidden {
   opacity: 0;
   transform: translateY(40px);
@@ -155,7 +174,9 @@ button:hover:not(:disabled) {
   transform: translateY(0);
 }
 
-/* Responsive layout */
+/* ===========================
+   RESPONSIVE LAYOUT
+   =========================== */
 @media (min-width: 768px) {
   .projects {
     flex-direction: row;
@@ -168,7 +189,9 @@ button:hover:not(:disabled) {
   }
 }
 
-/* Footer */
+/* ===========================
+   FOOTER
+   =========================== */
 footer {
   margin-top: 40px;
   padding: 20px;
