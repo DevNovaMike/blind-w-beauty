@@ -52,7 +52,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(
-        // ✅ Replace this with your new Apps Script URL after redeploy
         "https://script.google.com/macros/s/AKfycbzn2KOH4u6mnnJWfpyZk88SEQh3Kx1cAb_zg0E4QXdBzHk2D8FGQkvqcPN7JCVInTnW/exec",
         {
           method: "POST",
