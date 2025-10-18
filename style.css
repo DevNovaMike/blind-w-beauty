@@ -4,7 +4,7 @@
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #1a001f, #3a0066); /* dark luxury gradient */
-  color: #ffffff; /* main text color */
+  color: #ffffff; /* force main text color */
   text-align: center;
   margin: 0;
   padding: 0;
@@ -29,19 +29,19 @@ header {
 
 h1 {
   font-family: 'Playfair Display', serif;
-  color: #b3003b;
+  color: #ffffff; /* force header white */
   margin-bottom: 5px;
 }
 
 h2 {
-  color: #b3003b;
+  color: #ffffff; /* section headings white */
   font-family: 'Playfair Display', serif;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-p, h3 {
-  color: #ffffff; /* main readable text */
+p, h3, label {
+  color: #ffffff; /* all paragraphs and h3 white */
 }
 
 /* ===========================
@@ -51,7 +51,7 @@ button {
   padding: 10px 20px;
   background-color: #9b4dff; /* lighter purple */
   border: none;
-  color: white;
+  color: #ffffff; /* force button text white */
   border-radius: 30px;
   cursor: pointer;
   margin-top: 10px;
@@ -78,11 +78,11 @@ button:hover:not(:disabled) {
   max-width: 700px;
   margin: 40px auto;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.18); /* visible on dark gradient */
+  background-color: rgba(0, 0, 0, 0.6); /* more contrast for readability */
   border-radius: 10px;
-  border: 1px solid rgba(179, 0, 59, 0.6); /* red border */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  color: #ffffff; /* ensure text visible */
+  border: 1px solid #b3003b; /* red border */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  color: #ffffff;
 }
 
 #contact input,
@@ -93,8 +93,13 @@ button:hover:not(:disabled) {
   font-size: 1rem;
   border: 1px solid #9b4dff;
   border-radius: 5px;
-  background-color: rgba(255,255,255,0.25); /* more visible on dark */
-  color: #000; /* typed text visible */
+  background-color: rgba(255,255,255,0.1); /* light input background */
+  color: #ffffff; /* input text white */
+}
+
+#contact input::placeholder,
+#contact textarea::placeholder {
+  color: #ddd; /* placeholder visible */
 }
 
 #contact textarea {
@@ -111,17 +116,18 @@ button:hover:not(:disabled) {
 }
 
 .project-card {
-  background-color: #230033; /* dark purple */
+  background-color: #2a002f; /* dark purple */
   border: 1px solid #9b4dff;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 0 15px rgba(179, 0, 59, 0.2);
+  box-shadow: 0 0 15px rgba(179, 0, 59, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #ffffff; /* force project card text white */
 }
 
 .project-card:hover {
   transform: scale(1.02);
-  box-shadow: 0 0 20px rgba(179, 0, 59, 0.4);
+  box-shadow: 0 0 20px rgba(179, 0, 59, 0.5);
 }
 
 .project-card i {
@@ -139,7 +145,7 @@ button:hover:not(:disabled) {
    =========================== */
 .dark-mode {
   background: #0b0b0b;
-  color: #f0f0f0;
+  color: #ffffff;
 }
 
 .dark-mode #about,
@@ -148,12 +154,12 @@ button:hover:not(:disabled) {
 .dark-mode .project-card {
   background-color: #121212;
   border: 1px solid #9b4dff;
-  color: #f0f0f0;
+  color: #ffffff;
 }
 
 .dark-mode button {
   background-color: #9b4dff;
-  color: #fff;
+  color: #ffffff;
 }
 
 .dark-mode button:hover {
@@ -196,7 +202,7 @@ footer {
   margin-top: 40px;
   padding: 20px;
   background-color: #0b0b0b;
-  color: #ccc;
+  color: #ffffff;
   font-size: 0.9rem;
 }
 
