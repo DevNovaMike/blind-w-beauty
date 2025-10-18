@@ -49,18 +49,13 @@ window.addEventListener("DOMContentLoaded", () => {
     button.textContent = "Booking...";
 
     const formData = new FormData(form);
-    const params = new URLSearchParams();
-    for (const [key, value] of formData.entries()) {
-      params.append(key, value);
-    }
 
     try {
       const response = await fetch(
         "https://script.google.com/macros/s/AKfycbzn2KOH4u6mnnJWfpyZk88SEQh3Kx1cAb_zg0E4QXdBzHk2D8FGQkvqcPN7JCVInTnW/exec",
         {
           method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: params.toString(),
+          body: formData, // ✅ CHANGED — allows file uploads
         }
       );
 
