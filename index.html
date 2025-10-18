@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="Your destination for Nails, Hair & Beauty." />
   <meta name="twitter:image" content="https://via.placeholder.com/600x400.png?text=Blind+W+Beauty" />
 
-  <title>Blind W Beauty</title>
+  <title>Blind w Beauty</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Font Awesome -->
@@ -81,14 +81,10 @@
       <input type="text" name="name" placeholder="Full Name" required />
 
       <input type="tel" name="phone" placeholder="Your Phone Number"
-             pattern="^\\(?\\d{3}\\)?[- ]?\\d{3}[- ]?\\d{4}$"
-             title="Enter a valid phone number: (000)000-0000 or 000-000-0000"
-             required />
-
-      <input type="email" name="email" placeholder="Your Email (optional)" />
+         pattern="^(\(\d{3}\)\d{3}-\d{4}|\d{3}-\d{3}-\d{4})$"
+         required />
 
       <textarea name="message" placeholder="Preferred date, time, and service details" required></textarea>
-
       <button type="submit" disabled>Book Now</button>
     </form>
   </section>
