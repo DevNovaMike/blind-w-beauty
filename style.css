@@ -221,3 +221,10 @@ footer {
 .social-icons a:hover {
   color: #9b4dff;
 }
+
+.service-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
