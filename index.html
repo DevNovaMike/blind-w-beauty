@@ -79,17 +79,24 @@
 
   <section id="contact" class="hidden">
     <h2>Book an Appointment</h2>
-    <form id="contactForm">
-      <input type="text" name="name" placeholder="Full Name" required />
+   <section id="contact" class="hidden">
+  <h2>Book an Appointment</h2>
+  <form id="contactForm" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="Full Name" required />
 
-      <input type="tel" name="phone" placeholder="Your Phone Number"
-         pattern="^\(?\d{3}\)?[-\s]?\d{3}-\d{4}$"
-         required />
+    <input type="tel" name="phone" placeholder="Your Phone Number"
+       pattern="^\\(?\\d{3}\\)?[-\\s]?\\d{3}-\\d{4}$"
+       required />
 
-      <textarea name="message" placeholder="Preferred date, time, and service details" required></textarea>
-      <button type="submit" disabled>Book Now</button>
-    </form>
-  </section>
+    <textarea name="message" placeholder="Preferred date, time, and service details" required></textarea>
+
+    <!-- 🆕 Photo upload -->
+    <label style="display:block; margin-top:10px;">Upload Reference Photo (optional)</label>
+    <input type="file" name="photo" accept="image/*" />
+
+    <button type="submit" disabled>Book Now</button>
+  </form>
+</section>
 
   <footer>
     <p>©️ 2025 Blind w Beauty. All rights reserved.</p>
