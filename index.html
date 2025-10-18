@@ -84,18 +84,23 @@
   <form id="contactForm" enctype="multipart/form-data">
     <input type="text" name="name" placeholder="Full Name" required />
 
-    <input type="tel" name="phone" placeholder="Your Phone Number"
-       pattern="^\\(?\\d{3}\\)?[-\\s]?\\d{3}-\\d{4}$"
-       required />
+    <input
+      type="tel"
+      name="phone"
+      placeholder="Your Phone Number"
+      pattern="^\(?\d{3}\)?[-\s]?\d{3}-\d{4}$"
+      required
+    />
 
-    <textarea name="message" placeholder="Preferred date, time, and service details" required></textarea>
+    <textarea
+      name="message"
+      placeholder="Preferred date, time, and service details"
+      required
+    ></textarea>
 
-    <!-- 🆕 Photo upload -->
-    <label style="display:block; margin-top:10px;">Upload Reference Photo (optional)</label>
-    <input type="file" name="photo" accept="image/*" />
-
-    <label for="photo">Upload Reference Photo (optional):</label>
-    <input type="file" id="photo" name="photo" accept="image/*">
+    <!-- ✅ Single Photo Upload -->
+    <label style="display:block; margin-top:10px;">Upload Reference Photo (optional):</label>
+    <input type="file" id="photo" name="photo" accept="image/*" />
 
     <button type="submit" disabled>Book Now</button>
   </form>
