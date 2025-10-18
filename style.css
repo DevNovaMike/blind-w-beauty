@@ -223,8 +223,11 @@ footer {
 }
 
 .service-img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* make circular */
+  object-fit: cover; /* crop to fit */
   margin-bottom: 10px;
+  border: 3px solid #b3003b; /* red accent border */
+  box-shadow: 0 0 8px rgba(179, 0, 59, 0.4); /* optional polish */
 }
