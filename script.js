@@ -51,7 +51,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const formData = new FormData(form);
     const params = new URLSearchParams();
     for (const [key, value] of formData.entries()) {
-      params.append(key, value.trim());
+      params.append(key, value);
     }
 
     try {
@@ -59,9 +59,7 @@ window.addEventListener("DOMContentLoaded", () => {
         "https://script.google.com/macros/s/AKfycbzn2KOH4u6mnnJWfpyZk88SEQh3Kx1cAb_zg0E4QXdBzHk2D8FGQkvqcPN7JCVInTnW/exec",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded", // ✅ ensures textarea is sent correctly
-          },
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: params.toString(),
         }
       );
@@ -69,12 +67,7 @@ window.addEventListener("DOMContentLoaded", () => {
       const rawText = await response.text();
       console.log("Server response:", rawText);
 
-      let result;
-      try {
-        result = JSON.parse(rawText);
-      } catch {
-        throw new Error("Unexpected response format — check console log.");
-      }
+      const result = JSON.parse(rawText);
 
       if (result.result === "success") {
         Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
