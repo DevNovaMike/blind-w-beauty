@@ -52,7 +52,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbzn2KOH4u6mnnJWfpyZk88SEQh3Kx1cAb_zg0E4QXdBzHk2D8FGQkvqcPN7JCVInTnW/exec",
+        "https://script.google.com/macros/s/AKfycbyZpLka1cEBztOGyMaCY3faIMcPaqIyi7lfWrb6W4cM1JsfiNijlJqiMZVu0I4wxgY8jg/exec",
         {
           method: "POST",
           body: formData, // ✅ Supports file + text
