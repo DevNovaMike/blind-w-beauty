@@ -56,7 +56,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(
-        "PASTE_YOUR_WEB_APP_URL_HERE", // <-- Replace with your deployed Apps Script URL
+        "https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec", // <-- Replace with your deployed Apps Script URL
         {
           method: "POST",
           body: formData // ✅ FormData avoids preflight
