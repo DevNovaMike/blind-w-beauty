@@ -48,13 +48,22 @@ window.addEventListener("DOMContentLoaded", () => {
     button.disabled = true;
     button.textContent = "Booking...";
 
-    const formData = new FormData(form);
+    // Simple JSON payload (no FormData needed)
+    const payload = {
+      name: form.name.value,
+      phone: form.phone.value,
+      message: form.message.value
+    };
 
     try {
-      const response = await fetch("https://script.google.com/macros/s/AKfycbxBjcU3w7akLwrVNmtqF-1-yRg5R_aJnwXiZEkyqmc6YzZ91KxrQDZ2fRzLAffb5pluJQ/exec", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbxBjcU3w7akLwrVNmtqF-1-yRg5R_aJnwXiZEkyqmc6YzZ91KxrQDZ2fRzLAffb5pluJQ/exec", // <-- replace with your actual web app URL
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
 
       const result = await response.json();
 
