@@ -83,13 +83,8 @@
     <form id="contactForm" enctype="multipart/form-data">
       <input type="text" name="name" placeholder="Full Name" required />
 
-      <!-- phone changed to plain text (no pattern validation) -->
-      <input
-        type="text"
-        name="phone"
-        placeholder="Your Phone Number"
-        required
-      />
+      <!-- phone input simplified -->
+      <input type="text" name="phone" placeholder="Your Phone Number" required />
 
       <textarea
         name="message"
@@ -120,6 +115,50 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Replace with your actual Google Apps Script web app URL
+    const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+
+    const form = document.getElementById("contactForm");
+    const submitButton = form.querySelector("button");
+
+    form.addEventListener("input", () => {
+      submitButton.disabled = !form.checkValidity();
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      submitButton.disabled = true;
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(SCRIPT_URL, { method: "POST", body: formData });
+        const result = await response.text();
+
+        if (result.includes("Success")) {
+          Swal.fire({
+            icon: "success",
+            title: "Appointment Booked!",
+            text: "We’ll confirm your appointment shortly.",
+            confirmButtonColor: "#d4a373",
+          });
+          form.reset();
+          submitButton.disabled = true;
+        } else {
+          throw new Error(result);
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Something went wrong. Please try again.",
+        });
+        console.error("Error:", error);
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
