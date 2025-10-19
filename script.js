@@ -53,7 +53,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch("PASTE_YOUR_WEB_APP_URL_HERE", {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec", {
         method: "POST",
         body: formData,
       });
