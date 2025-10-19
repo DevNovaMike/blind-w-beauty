@@ -59,39 +59,23 @@
 
   <!-- CONTACT / APPOINTMENT -->
   <section id="contact" class="hidden">
-  <h2>Book an Appointment</h2>
-  <!-- form posts directly to Google Apps Script -->
-  <form id="contactForm" action="PASTE_YOUR_SCRIPT_URL_HERE" method="post" target="hidden_iframe">
-    <input type="text" name="name" placeholder="Full Name" required />
-    <input type="text" name="phone" placeholder="Phone Number" required />
-    <textarea name="message" placeholder="Preferred date, time, and service details" required></textarea>
-    <button type="submit">Book Now</button>
-  </form>
-  <!-- Hidden iframe for form submission -->
-  <iframe name="hidden_iframe" style="display:none;"></iframe>
-</section>
-
-<script>
-  const form = document.getElementById("contactForm");
-
-  form.addEventListener("submit", () => {
-    // show success after short delay
-    setTimeout(() => {
-      Swal.fire({
-        icon: "success",
-        title: "Appointment Sent!",
-        text: "We'll contact you soon to confirm.",
-        confirmButtonColor: "#d4a373",
-      });
-      form.reset();
-    }, 500);
-  });
-</script>
+    <h2>Book an Appointment</h2>
+    <form id="contactForm" 
+          action="https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec" 
+          method="post" 
+          target="hidden_iframe">
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="text" name="phone" placeholder="Phone Number" required />
+      <textarea name="message" placeholder="Preferred date, time, and service details" required></textarea>
+      <button type="submit">Book Now</button>
+    </form>
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
+  </section>
 
   <footer>
     <p>©️ 2025 Blind w Beauty. All rights reserved.</p>
     <div class="social-icons">
-      <a href="https://www.instagram.com/b3autified._by.bejou" target="_blank" aria-label="Instagram">
+      <a href="https://www.instagram.com/b3autified._by.bejou?igsh=cmF3OGJ0aTJhczFx" target="_blank" aria-label="Instagram">
         <i class="fab fa-instagram"></i>
       </a>
       <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook">
@@ -104,5 +88,19 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    const form = document.getElementById("contactForm");
+    form.addEventListener("submit", () => {
+      setTimeout(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Appointment Sent!",
+          text: "We'll contact you soon to confirm.",
+          confirmButtonColor: "#d4a373",
+        });
+        form.reset();
+      }, 500);
+    });
+  </script>
 </body>
 </html>
