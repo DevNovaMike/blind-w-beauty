@@ -55,16 +55,22 @@ window.addEventListener("DOMContentLoaded", () => {
         "https://script.google.com/macros/s/AKfycbwzI4rqvk2MeshT1IkNOVOfB_5m6APDRumQwfTmqUNf8zcPsv5ek2lGlh6tjKDk9BDnmg/exec",
         {
           method: "POST",
-          body: formData, // ✅ Supports file + text
+          body: formData,
         }
       );
 
       const rawText = await response.text();
       console.log("Server response:", rawText);
 
-      const result = JSON.parse(rawText);
+      // ✅ Safely parse response (handles both plain text and JSON)
+      let result;
+      try {
+        result = JSON.parse(rawText);
+      } catch {
+        result = { result: rawText.trim().toLowerCase() };
+      }
 
-      if (result.result === "success") {
+      if (result.result === "success" || result.result === "successfully" || result.result === "successfully!") {
         Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
         form.reset();
       } else {
