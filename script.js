@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   // -----------------------------
-  // Contact / Appointment Form
+  // Appointment Form
   // -----------------------------
   const form = document.getElementById("contactForm");
   const button = form.querySelector("button[type='submit']");
@@ -51,18 +51,12 @@ window.addEventListener("DOMContentLoaded", () => {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbwzI4rqvk2MeshT1IkNOVOfB_5m6APDRumQwfTmqUNf8zcPsv5ek2lGlh6tjKDk9BDnmg/exec",
-        {
-          method: "POST",
-          body: formData, // ✅ Supports file + text
-        }
-      );
+      const response = await fetch("PASTE_YOUR_WEB_APP_URL_HERE", {
+        method: "POST",
+        body: formData,
+      });
 
-      const rawText = await response.text();
-      console.log("Server response:", rawText);
-
-      const result = JSON.parse(rawText);
+      const result = await response.json();
 
       if (result.result === "success") {
         Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
