@@ -63,12 +63,11 @@
   <!-- CONTACT / APPOINTMENT -->
   <section id="contact" class="hidden">
     <h2>Book an Appointment</h2>
-    <form id="appointmentForm" enctype="multipart/form-data">
-      <input type="text" name="name" placeholder="Full Name" required />
-      <input type="text" name="phone" placeholder="Your Phone Number" required />
-      <textarea name="message" placeholder="Preferred date, time, and service details" required></textarea>
-      <label style="display:block; margin-top:10px;">Upload Reference Photo:</label>
-      <input type="file" id="photo" name="photo" accept="image/*" />
+    <form id="contactForm" enctype="multipart/form-data">
+      <input type="text" name="name" required>
+      <input type="tel" name="phone" required>
+      <textarea name="message" required></textarea>
+      <input type="file" name="photo" accept="image/*">
       <button type="submit">Book Now</button>
     </form>
   </section>
