@@ -4,6 +4,7 @@
 function toggleDarkMode() {
   const isDark = document.body.classList.toggle("dark-mode");
   localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
+
   const btn = document.querySelector('button[onclick="toggleDarkMode()"]');
   if (btn) btn.textContent = isDark ? "Light Mode ☀️" : "Dark Mode 🌙";
 }
@@ -47,7 +48,7 @@ window.addEventListener("DOMContentLoaded", () => {
     button.disabled = true;
     button.textContent = "Booking...";
 
-    // Send JSON instead of FormData
+    // Read input values
     const payload = {
       name: form.name.value,
       phone: form.phone.value,
@@ -55,14 +56,15 @@ window.addEventListener("DOMContentLoaded", () => {
     };
 
     try {
-      const response = await fetch("https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec", {
+      const response = await fetch("YOUR_GOOGLE_SCRIPT_URL_HERE", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify(payload)
       });
 
       const result = await response.json();
-      console.log("Server response:", result);
 
       if (result.result === "success") {
         Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
