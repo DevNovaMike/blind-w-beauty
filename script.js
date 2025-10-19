@@ -48,7 +48,6 @@ window.addEventListener("DOMContentLoaded", () => {
     button.disabled = true;
     button.textContent = "Booking...";
 
-    // Read input values
     const payload = {
       name: form.name.value,
       phone: form.phone.value,
@@ -58,9 +57,7 @@ window.addEventListener("DOMContentLoaded", () => {
     try {
       const response = await fetch("YOUR_GOOGLE_SCRIPT_URL_HERE", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
 
