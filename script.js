@@ -4,7 +4,6 @@
 function toggleDarkMode() {
   const isDark = document.body.classList.toggle("dark-mode");
   localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
-
   const btn = document.querySelector('button[onclick="toggleDarkMode()"]');
   if (btn) btn.textContent = isDark ? "Light Mode ☀️" : "Dark Mode 🌙";
 }
@@ -48,7 +47,7 @@ window.addEventListener("DOMContentLoaded", () => {
     button.disabled = true;
     button.textContent = "Booking...";
 
-    // Simple JSON payload (no FormData needed)
+    // Send JSON instead of FormData
     const payload = {
       name: form.name.value,
       phone: form.phone.value,
@@ -56,20 +55,19 @@ window.addEventListener("DOMContentLoaded", () => {
     };
 
     try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbxBjcU3w7akLwrVNmtqF-1-yRg5R_aJnwXiZEkyqmc6YzZ91KxrQDZ2fRzLAffb5pluJQ/exec", // <-- replace with your actual web app URL
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      );
+      const response = await fetch("PASTE_YOUR_WEB_APP_URL_HERE", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
       const result = await response.json();
+      console.log("Server response:", result);
 
       if (result.result === "success") {
         Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
         form.reset();
+        button.disabled = true;
       } else {
         throw new Error(result.message || "Server rejected the submission.");
       }
