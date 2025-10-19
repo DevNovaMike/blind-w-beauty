@@ -55,7 +55,7 @@ window.addEventListener("DOMContentLoaded", () => {
     };
 
     try {
-      const response = await fetch("YOUR_GOOGLE_SCRIPT_URL_HERE", {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
