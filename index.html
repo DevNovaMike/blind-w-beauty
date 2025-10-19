@@ -59,14 +59,34 @@
 
   <!-- CONTACT / APPOINTMENT -->
   <section id="contact" class="hidden">
-    <h2>Book an Appointment</h2>
-    <form id="contactForm">
-      <input type="text" name="name" placeholder="Full Name" required />
-      <input type="text" name="phone" placeholder="Phone Number" required />
-      <textarea name="message" placeholder="Preferred date, time, and service details" required></textarea>
-      <button type="submit" disabled>Book Now</button>
-    </form>
-  </section>
+  <h2>Book an Appointment</h2>
+  <!-- form posts directly to Google Apps Script -->
+  <form id="contactForm" action="PASTE_YOUR_SCRIPT_URL_HERE" method="post" target="hidden_iframe">
+    <input type="text" name="name" placeholder="Full Name" required />
+    <input type="text" name="phone" placeholder="Phone Number" required />
+    <textarea name="message" placeholder="Preferred date, time, and service details" required></textarea>
+    <button type="submit">Book Now</button>
+  </form>
+  <!-- Hidden iframe for form submission -->
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
+</section>
+
+<script>
+  const form = document.getElementById("contactForm");
+
+  form.addEventListener("submit", () => {
+    // show success after short delay
+    setTimeout(() => {
+      Swal.fire({
+        icon: "success",
+        title: "Appointment Sent!",
+        text: "We'll contact you soon to confirm.",
+        confirmButtonColor: "#d4a373",
+      });
+      form.reset();
+    }, 500);
+  });
+</script>
 
   <footer>
     <p>©️ 2025 Blind w Beauty. All rights reserved.</p>
