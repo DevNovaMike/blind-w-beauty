@@ -2,20 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-
-  <!-- SEO Meta Tags -->
   <meta name="description" content="Blind w Beauty - Nails, Hair & Beauty Studio offering premium self-care experiences." />
   <meta name="keywords" content="Blind w Beauty, nails, hair, beauty salon, manicure, hairstyling, beauty studio" />
   <meta name="author" content="Blind w Beauty" />
-
-  <!-- Open Graph (Facebook, LinkedIn) -->
   <meta property="og:title" content="Blind w Beauty" />
   <meta property="og:description" content="Luxury Nails, Hair & Beauty Services. Book your appointment today!" />
   <meta property="og:image" content="https://via.placeholder.com/600x400.png?text=Blind+w+Beauty" />
   <meta property="og:url" content="https://yourdomain.com/" />
   <meta property="og:type" content="website" />
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Blind w Beauty" />
   <meta name="twitter:description" content="Your destination for Nails, Hair & Beauty." />
@@ -23,23 +17,15 @@
 
   <title>Blind w Beauty</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-
-  <!-- External CSS -->
   <link rel="stylesheet" href="style.css" />
-
-  <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
   <header>
-    <img src="logo.jpg" onerror="this.src='https://via.placeholder.com/120?text=Blind+w+Beauty'" alt="Salon Logo" class="avatar" />
+    <img src="images/blind-with-beauty.jpeg" alt="Blind With Beauty" class="service-img" />
     <h1>Blind w Beauty</h1>
     <p>Luxury Nails, Hair & Beauty Studio 💅💇‍♀️</p>
     <button onclick="toggleDarkMode()">Dark Mode 🌙</button>
@@ -47,11 +33,7 @@
 
   <section id="about" class="hidden">
     <h2>About Us</h2>
-    <p>
-      Welcome to <strong>Blind w Beauty</strong> — where elegance meets creativity. 
-      We specialize in high-end nail art, custom hair styling, and personalized beauty services 
-      designed to help you look and feel your absolute best.
-    </p>
+    <p>Welcome to <strong>Blind w Beauty</strong> — where elegance meets creativity. We specialize in high-end nail art, custom hair styling, and personalized beauty services designed to help you look and feel your absolute best.</p>
   </section>
 
   <section id="portfolio" class="hidden">
@@ -62,13 +44,11 @@
         <h3>Manicures & Nail Art</h3>
         <p>From classic elegance to bold creative designs — every detail crafted to perfection.</p>
       </div>
-
       <div class="project-card">
         <img src="images/blind-with-beauty.jpeg" alt="Blind With Beauty" class="service-img" />
         <h3>Hair Styling & Coloring</h3>
         <p>Transform your look with expert cuts, vibrant colors, and nourishing treatments.</p>
       </div>
-
       <div class="project-card">
         <i class="fa-solid fa-face-smile-beam"></i>
         <h3>Beauty Packages</h3>
@@ -80,22 +60,10 @@
   <!-- CONTACT / APPOINTMENT -->
   <section id="contact" class="hidden">
     <h2>Book an Appointment</h2>
-    <form id="contactForm" enctype="multipart/form-data">
+    <form id="contactForm">
       <input type="text" name="name" placeholder="Full Name" required />
-
-      <!-- phone input simplified -->
-      <input type="text" name="phone" placeholder="Your Phone Number" required />
-
-      <textarea
-        name="message"
-        placeholder="Preferred date, time, and service details"
-        required
-      ></textarea>
-
-      <!-- single photo upload -->
-      <label style="display:block; margin-top:10px;">Upload Reference Photo:</label>
-      <input type="file" id="photo" name="photo" accept="image/*" />
-
+      <input type="text" name="phone" placeholder="Phone Number" required />
+      <textarea name="message" placeholder="Preferred date, time, and service details" required></textarea>
       <button type="submit" disabled>Book Now</button>
     </form>
   </section>
@@ -115,50 +83,6 @@
     </div>
   </footer>
 
-  <script>
-    // Replace with your actual Google Apps Script web app URL
-    const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
-
-    const form = document.getElementById("contactForm");
-    const submitButton = form.querySelector("button");
-
-    form.addEventListener("input", () => {
-      submitButton.disabled = !form.checkValidity();
-    });
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      submitButton.disabled = true;
-
-      const formData = new FormData(form);
-
-      try {
-        const response = await fetch(SCRIPT_URL, { method: "POST", body: formData });
-        const result = await response.text();
-
-        if (result.includes("Success")) {
-          Swal.fire({
-            icon: "success",
-            title: "Appointment Booked!",
-            text: "We’ll confirm your appointment shortly.",
-            confirmButtonColor: "#d4a373",
-          });
-          form.reset();
-          submitButton.disabled = true;
-        } else {
-          throw new Error(result);
-        }
-      } catch (error) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops!",
-          text: "Something went wrong. Please try again.",
-        });
-        console.error("Error:", error);
-      } finally {
-        submitButton.disabled = false;
-      }
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
