@@ -58,15 +58,19 @@ document.addEventListener("DOMContentLoaded", () => {
         "https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec",
         {
           method: "POST",
-          mode: "cors",
+          // ✅ Remove mode: "cors" because GAS handles CORS automatically
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         }
       );
 
-      console.log("Server response:", response.status);
+      console.log("Server response status:", response.status);
 
-      if (response.ok) {
+      // ✅ Parse response safely (GAS returns JSON)
+      const result = await response.json();
+      console.log("Server result:", result);
+
+      if (response.ok && result.status === "success") {
         Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
         form.reset();
       } else {
