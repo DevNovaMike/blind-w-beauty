@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Blind w Beauty — Hair Styling Gallery</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Shared styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <img src="images/blind-with-beauty.jpeg" alt="Blind w Beauty logo" class="avatar" />
+    <h1>Blind w Beauty</h1>
+    <p>Hair Styling & Coloring Gallery 💇‍♀️</p>
+    <button onclick="toggleDarkMode()">Dark Mode 🌙</button>
+  </header>
+
+  <main class="container">
+    <section class="gallery-intro">
+      <h2>Review My Work</h2>
+      <p>Explore a collection of our favorite hair transformations, color blends, and creative styles.</p>
+      <a class="back-link" href="index.html" aria-label="Back to homepage">← Back to Services</a>
+    </section>
+
+    <!-- Hair gallery grid -->
+    <section class="nail-gallery" aria-label="Hair styling gallery">
+      <article class="gallery-card">
+        <button class="img-btn" onclick="openLightbox('images/hair1.jpg','Soft Balayage Blend')">
+          <img src="images/hair1-thumb.jpg" alt="Soft Balayage Blend" />
+        </button>
+        <h3>Soft Balayage Blend</h3>
+        <p>Natural sun-kissed tones for effortless everyday beauty.</p>
+      </article>
+
+      <article class="gallery-card">
+        <button class="img-btn" onclick="openLightbox('images/hair2.jpg','Vibrant Red Transformation')">
+          <img src="images/hair2-thumb.jpg" alt="Vibrant Red Transformation" />
+        </button>
+        <h3>Vibrant Red Transformation</h3>
+        <p>Bold, fiery hues that demand attention and confidence.</p>
+      </article>
+
+      <article class="gallery-card">
+        <button class="img-btn" onclick="openLightbox('images/hair3.jpg','Sleek Straight Finish')">
+          <img src="images/hair3-thumb.jpg" alt="Sleek Straight Finish" />
+        </button>
+        <h3>Sleek Straight Finish</h3>
+        <p>Perfectly polished hair for a smooth, professional look.</p>
+      </article>
+
+      <!-- Add more <article> cards here as needed -->
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+    <img id="lightbox-img" src="" alt="" />
+    <p id="lightbox-caption"></p>
+  </div>
+
+  <footer>
+    <p>©️ 2025 Blind w Beauty. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function openLightbox(src, caption) {
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      const cap = document.getElementById('lightbox-caption');
+      img.src = src;
+      img.alt = caption || '';
+      cap.textContent = caption || '';
+      lb.style.display = 'flex';
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      lb.style.display = 'none';
+      lb.setAttribute('aria-hidden', 'true');
+      img.src = '';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
