@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Blind w Beauty — Nail Styles</title>
+
+  <!-- Fonts & icons (matches your main site) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Use your existing style.css -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <img src="images/blind-with-beauty.jpeg" alt="Blind w Beauty logo" class="avatar" />
+    <h1>Blind w Beauty</h1>
+    <p>Our Nail Style Gallery</p>
+    <button onclick="toggleDarkMode()">Dark Mode 🌙</button>
+  </header>
+
+  <main class="container">
+    <section class="gallery-intro">
+      <h2>Review My Work</h2>
+      <p>Browse recent manicure styles. Tap any image for a larger view.</p>
+      <a class="back-link" href="index.html" aria-label="Back to homepage">← Back to Services</a>
+    </section>
+
+    <!-- Gallery grid -->
+    <section class="nail-gallery" aria-label="Nail styles gallery">
+      <!-- Example card - duplicate/replace these for each style -->
+      <article class="gallery-card">
+        <button class="img-btn" onclick="openLightbox('images/nails1.jpg','Classic French')">
+          <img src="images/nails1-thumb.jpg" data-full="images/nails1.jpg" alt="Classic French manicure" />
+        </button>
+        <h3>Classic French</h3>
+        <p>Clean, elegant white tips — a timeless look.</p>
+      </article>
+
+      <article class="gallery-card">
+        <button class="img-btn" onclick="openLightbox('images/nails2.jpg','Glitter Ombre')">
+          <img src="images/nails2-thumb.jpg" data-full="images/nails2.jpg" alt="Glitter ombre nails" />
+        </button>
+        <h3>Glitter Ombre</h3>
+        <p>Subtle fade into sparkle — perfect for events.</p>
+      </article>
+
+      <article class="gallery-card">
+        <button class="img-btn" onclick="openLightbox('images/nails3.jpg','Matte Black')">
+          <img src="images/nails3-thumb.jpg" data-full="images/nails3.jpg" alt="Matte black nails" />
+        </button>
+        <h3>Matte Black</h3>
+        <p>Bold matte finish for an edgy, modern vibe.</p>
+      </article>
+
+      <!-- Add more cards here following same structure -->
+    </section>
+  </main>
+
+  <!-- Lightbox overlay -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+    <img id="lightbox-img" src="" alt="" />
+    <p id="lightbox-caption"></p>
+  </div>
+
+  <footer>
+    <p>©️ 2025 Blind w Beauty. All rights reserved.</p>
+  </footer>
+
+  <!-- Minimal JS for lightbox -->
+  <script>
+    function openLightbox(src, caption) {
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      const cap = document.getElementById('lightbox-caption');
+      img.src = src;
+      img.alt = caption || '';
+      cap.textContent = caption || '';
+      lb.style.display = 'flex';
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      lb.style.display = 'none';
+      lb.setAttribute('aria-hidden', 'true');
+      img.src = '';
+      document.body.style.overflow = '';
+    }
+    // close on ESC
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+
+  <!-- re-use your site script.js (dark mode, animations) -->
+  <script src="script.js"></script>
+</body>
+</html>
