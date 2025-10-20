@@ -56,7 +56,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const payload = { name, phone, message };
 
     try {
-      const response = await fetch("https://script.google.com/macros/s/PASTE_YOUR_NEW_DEPLOYMENT_URL_HERE/exec", {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
