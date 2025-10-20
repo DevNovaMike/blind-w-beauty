@@ -19,6 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (btn) btn.textContent = "Light Mode ☀️";
   }
 
+  // Animate sections
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -34,12 +35,11 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   // -----------------------------
-  // Appointment Form Submission
+  // Contact / Appointment Form
   // -----------------------------
   const form = document.getElementById("contactForm");
   const button = form.querySelector("button[type='submit']");
 
-  // Enable button only if form is valid
   form.addEventListener("input", () => {
     button.disabled = !form.checkValidity();
   });
@@ -49,35 +49,31 @@ window.addEventListener("DOMContentLoaded", () => {
     button.disabled = true;
     button.textContent = "Booking...";
 
-    // Use FormData to avoid CORS preflight
-    const formData = new FormData(form);
+    const name = form.name.value.trim();
+    const phone = form.phone.value.trim();
+    const message = form.message.value.trim();
+
+    const payload = { name, phone, message };
 
     try {
-      const response = await fetch("https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec", {
+      const response = await fetch("https://script.google.com/macros/s/PASTE_YOUR_NEW_DEPLOYMENT_URL_HERE/exec", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
       const result = await response.json();
+      console.log("Server response:", result);
 
-      if (result.result === "success") {
-        Swal.fire(
-          "✨ Appointment Sent!",
-          "We'll contact you soon to confirm.",
-          "success"
-        );
+      if (result.status === "success") {
+        Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
         form.reset();
-        button.disabled = true;
       } else {
         throw new Error(result.message || "Server rejected the submission.");
       }
     } catch (err) {
       console.error("Form submission error:", err);
-      Swal.fire(
-        "❌ Oops",
-        "Something went wrong — please try again.",
-        "error"
-      );
+      Swal.fire("❌ Oops", "Something went wrong — please try again.", "error");
     } finally {
       button.disabled = false;
       button.textContent = "Book Now";
