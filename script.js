@@ -60,8 +60,9 @@ window.addEventListener("DOMContentLoaded", () => {
         "https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec",
         {
           method: "POST",
-          mode: "no-cors", // ✅ prevents preflight/CORS 401 error
-          headers: { "Content-Type": "application/json" },
+          headers: {
+           "Content-Type": "application/json"
+           },
           body: JSON.stringify(payload),
         }
       );
