@@ -4,9 +4,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("✅ DOM fully loaded");
 
-  // -----------------------------
-  // Fade-In Safety — show content immediately
-  // -----------------------------
+  // Make page visible
   document.body.style.opacity = "1";
 
   // -----------------------------
@@ -20,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   window.toggleDarkMode = toggleDarkMode;
 
-  // Initialize dark mode from localStorage
+  // Restore dark mode state
   if (localStorage.getItem("darkMode") === "enabled") {
     document.body.classList.add("dark-mode");
     const btn = document.querySelector('button[onclick="toggleDarkMode()"]');
@@ -28,60 +26,58 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // -----------------------------
-  // Fix Hidden Sections — Ensure visibility
+  // Always Reveal Sections
   // -----------------------------
-  const sections = document.querySelectorAll(".hidden");
-  sections.forEach(el => {
-    el.classList.add("show");
-  });
+  document.querySelectorAll(".hidden").forEach(el => el.classList.add("show"));
 
   // -----------------------------
-  // Appointment / Contact Form
+  // Appointment Form Submission
   // -----------------------------
   const form = document.getElementById("contactForm");
-  if (form) {
-    const button = form.querySelector("button[type='submit']");
+  if (!form) return;
 
-    form.addEventListener("input", () => {
-      button.disabled = !form.checkValidity();
-    });
+  const button = form.querySelector("button[type='submit']");
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      button.disabled = true;
-      button.textContent = "Booking...";
+  form.addEventListener("input", () => {
+    button.disabled = !form.checkValidity();
+  });
 
-      const name = form.name.value.trim();
-      const phone = form.phone.value.trim();
-      const message = form.message.value.trim();
-      const payload = { name, phone, message };
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    button.disabled = true;
+    button.textContent = "Booking...";
 
-      try {
-        const response = await fetch(
-          "https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-            mode: "cors"
-          }
-        );
+    const name = form.name.value.trim();
+    const phone = form.phone.value.trim();
+    const message = form.message.value.trim();
 
-        console.log("Server response:", response.status);
+    const payload = { name, phone, message };
 
-        if (response.ok || response.status === 200) {
-          Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
-          form.reset();
-        } else {
-          Swal.fire("❌ Oops", "Something went wrong — please try again.", "error");
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec",
+        {
+          method: "POST",
+          mode: "cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
         }
-      } catch (err) {
-        console.error("Form submission error:", err);
-        Swal.fire("❌ Oops", "Network or server issue — please try again.", "error");
-      } finally {
-        button.disabled = false;
-        button.textContent = "Book Now";
+      );
+
+      console.log("Server response:", response.status);
+
+      if (response.ok) {
+        Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
+        form.reset();
+      } else {
+        Swal.fire("⚠️ Error", "Something went wrong — please try again later.", "error");
       }
-    });
-  }
+    } catch (err) {
+      console.error("❌ Submission error:", err);
+      Swal.fire("❌ Network Error", "Please check your connection and try again.", "error");
+    } finally {
+      button.disabled = false;
+      button.textContent = "Book Now";
+    }
+  });
 });
