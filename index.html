@@ -14,7 +14,6 @@
   <meta name="twitter:title" content="Blind w Beauty" />
   <meta name="twitter:description" content="Your destination for Nails, Hair & Beauty." />
   <meta name="twitter:image" content="https://via.placeholder.com/600x400.png?text=Blind+W+Beauty" />
-
   <title>Blind w Beauty</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -33,7 +32,11 @@
 
   <section id="about" class="hidden">
     <h2>About Us</h2>
-    <p>Welcome to <strong>Blind w Beauty</strong> — where elegance meets creativity. We specialize in high-end nail art, custom hair styling, and personalized beauty services designed to help you look and feel your absolute best.</p>
+    <p>
+      Welcome to <strong>Blind w Beauty</strong> — where elegance meets creativity. 
+      We specialize in high-end nail art, custom hair styling, and personalized beauty services 
+      designed to help you look and feel your absolute best.
+    </p>
   </section>
 
   <section id="portfolio" class="hidden">
@@ -60,16 +63,12 @@
   <!-- CONTACT / APPOINTMENT -->
   <section id="contact" class="hidden">
     <h2>Book an Appointment</h2>
-    <form id="contactForm" 
-          action="https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec" 
-          method="post" 
-          target="hidden_iframe">
-      <input type="text" name="name" placeholder="Full Name" required />
-      <input type="text" name="phone" placeholder="Phone Number" required />
-      <textarea name="message" placeholder="Preferred date, time, and service details" required></textarea>
+    <form id="contactForm">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <textarea name="message" placeholder="Your Message or Service Request" required></textarea>
       <button type="submit">Book Now</button>
     </form>
-    <iframe name="hidden_iframe" style="display:none;"></iframe>
   </section>
 
   <footer>
@@ -88,19 +87,5 @@
   </footer>
 
   <script src="script.js"></script>
-  <script>
-    const form = document.getElementById("contactForm");
-    form.addEventListener("submit", () => {
-      setTimeout(() => {
-        Swal.fire({
-          icon: "success",
-          title: "Appointment Sent!",
-          text: "We'll contact you soon to confirm.",
-          confirmButtonColor: "#d4a373",
-        });
-        form.reset();
-      }, 500);
-    });
-  </script>
 </body>
 </html>
