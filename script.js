@@ -45,39 +45,30 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    button.disabled = true;
-    button.textContent = "Booking...";
+  e.preventDefault();
+  button.disabled = true;
+  button.textContent = "Booking...";
 
-    const name = form.name.value.trim();
-    const phone = form.phone.value.trim();
-    const message = form.message.value.trim();
+  const formData = new FormData(form);
 
-    const payload = { name, phone, message };
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec", {
+      method: "POST",
+      body: formData,
+    });
 
-    try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec",
-        {
-          method: "POST",
-          headers: {
-           "Content-Type": "application/json"
-           },
-          body: JSON.stringify(payload),
-        }
-      );
-
-      console.log("Server response (no-cors mode):", response);
-
-      // Since "no-cors" blocks reading the response, assume success if no error thrown
+    if (response.ok) {
       Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
       form.reset();
-    } catch (err) {
-      console.error("Form submission error:", err);
+    } else {
       Swal.fire("❌ Oops", "Something went wrong — please try again.", "error");
-    } finally {
-      button.disabled = false;
-      button.textContent = "Book Now";
     }
-  });
+  } catch (err) {
+    console.error("Form submission error:", err);
+    Swal.fire("❌ Oops", "Something went wrong — please try again.", "error");
+  } finally {
+    button.disabled = false;
+    button.textContent = "Book Now";
+  }
+});
 });
