@@ -19,14 +19,10 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-
-  <!-- ✅ Force browsers to always load the latest CSS -->
-  <link rel="stylesheet" href="style.css?v=4" />
-
+  <link rel="stylesheet" href="style.css?v=1" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<!-- ✅ Fade-in safeguard to fix invisible content -->
 <body style="opacity:0; transition:opacity 0.5s ease;" onload="document.body.style.opacity='1'">
   <header>
     <img src="images/blind-with-beauty.jpeg" alt="Blind With Beauty" class="service-img" />
@@ -51,14 +47,12 @@
         <img src="images/book-for-nails.jpeg" alt="Book for Nails" class="service-img" />
         <h3>Manicures & Nail Art</h3>
         <p>From classic elegance to bold creative designs — every detail crafted to perfection.</p>
-        <button onclick="window.location.href='review-nail.html'" class="review-btn">Review My Work</button>
       </div>
 
       <div class="project-card">
         <img src="images/blind-with-beauty.jpeg" alt="Blind With Beauty" class="service-img" />
         <h3>Hair Styling & Coloring</h3>
         <p>Transform your look with expert cuts, vibrant colors, and nourishing treatments.</p>
-        <button onclick="window.location.href='review-hair.html'" class="review-btn">Review My Work</button>
       </div>
 
       <div class="project-card">
@@ -72,10 +66,10 @@
   <section id="contact" class="hidden">
     <h2>Book an Appointment</h2>
     <form id="contactForm">
-        <input type="text" name="name" placeholder="Full Name" required />
-        <input type="tel" name="phone" placeholder="Phone Number" required />
-        <textarea name="message" placeholder="Your Message or Service Request" required></textarea>
-        <button type="submit">Book Now</button>
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="text" name="phone" placeholder="Phone Number" required />
+      <textarea name="message" placeholder="Your Message or Service Request" required></textarea>
+      <button type="submit">Book Now</button>
     </form>
   </section>
 
@@ -94,7 +88,6 @@
     </div>
   </footer>
 
-  <!-- ✅ Add version to force reload -->
-  <script src="script.js?v=7"></script>
+  <script src="script.js?v=1"></script>
 </body>
 </html>
