@@ -1,15 +1,5 @@
-// -----------------------------
-// Safe DOM Ready Wrapper
-// -----------------------------
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ DOM fully loaded");
-
-  // Make page visible
-  document.body.style.opacity = "1";
-
-  // -----------------------------
-  // Dark Mode Toggle
-  // -----------------------------
+  // Dark Mode
   function toggleDarkMode() {
     const isDark = document.body.classList.toggle("dark-mode");
     localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
@@ -18,63 +8,39 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   window.toggleDarkMode = toggleDarkMode;
 
-  // Restore dark mode state
   if (localStorage.getItem("darkMode") === "enabled") {
     document.body.classList.add("dark-mode");
     const btn = document.querySelector('button[onclick="toggleDarkMode()"]');
     if (btn) btn.textContent = "Light Mode ☀️";
   }
 
-  // -----------------------------
-  // Always Reveal Sections
-  // -----------------------------
   document.querySelectorAll(".hidden").forEach(el => el.classList.add("show"));
 
-  // -----------------------------
-  // Appointment Form Submission
-  // -----------------------------
+  // Appointment Form
   const form = document.getElementById("contactForm");
   if (!form) return;
-
   const button = form.querySelector("button[type='submit']");
-
-  form.addEventListener("input", () => {
-    button.disabled = !form.checkValidity();
-  });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     button.disabled = true;
     button.textContent = "Booking...";
 
-    const name = form.name.value.trim();
-    const phone = form.phone.value.trim();
-    const message = form.message.value.trim();
-
-    const payload = { name, phone, message };
+    const formData = new FormData(form); // ✅ avoids preflight
 
     try {
       const response = await fetch(
         "https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec",
-        {
-          method: "POST",
-          // ✅ Remove mode: "cors" because GAS handles CORS automatically
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
+        { method: "POST", body: formData }
       );
 
-      console.log("Server response status:", response.status);
-
-      // ✅ Parse response safely (GAS returns JSON)
       const result = await response.json();
-      console.log("Server result:", result);
 
-      if (response.ok && result.status === "success") {
+      if (response.ok && result.success) {
         Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
         form.reset();
       } else {
-        Swal.fire("⚠️ Error", "Something went wrong — please try again later.", "error");
+        Swal.fire("⚠️ Error", result.error || "Something went wrong — please try again.", "error");
       }
     } catch (err) {
       console.error("❌ Submission error:", err);
