@@ -16,14 +16,13 @@
   <meta name="twitter:image" content="https://via.placeholder.com/600x400.png?text=Blind+W+Beauty" />
   <title>Blind w Beauty</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=1" />
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+<body>
 
-<body style="opacity:0; transition:opacity 0.5s ease;" onload="document.body.style.opacity='1'">
   <header>
     <img src="images/blind-with-beauty.jpeg" alt="Blind With Beauty" class="service-img" />
     <h1>Blind w Beauty</h1>
@@ -47,12 +46,20 @@
         <img src="images/book-for-nails.jpeg" alt="Book for Nails" class="service-img" />
         <h3>Manicures & Nail Art</h3>
         <p>From classic elegance to bold creative designs — every detail crafted to perfection.</p>
+
+        <!-- ✅ NEW BUTTON ADDED HERE -->
+        <button onclick="window.location.href='review-nail.html'" class="review-btn">
+          Review My Work
+        </button>
       </div>
 
       <div class="project-card">
         <img src="images/blind-with-beauty.jpeg" alt="Blind With Beauty" class="service-img" />
         <h3>Hair Styling & Coloring</h3>
         <p>Transform your look with expert cuts, vibrant colors, and nourishing treatments.</p>
+      <button onclick="window.location.href='review-hair.html'" class="review-btn">
+        Review My Work
+      </button>button> 
       </div>
 
       <div class="project-card">
@@ -63,11 +70,12 @@
     </div>
   </section>
 
+  <!-- CONTACT / APPOINTMENT -->
   <section id="contact" class="hidden">
     <h2>Book an Appointment</h2>
     <form id="contactForm">
-      <input type="text" name="name" placeholder="Full Name" required />
-      <input type="text" name="phone" placeholder="Phone Number" required />
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
       <textarea name="message" placeholder="Your Message or Service Request" required></textarea>
       <button type="submit">Book Now</button>
     </form>
@@ -88,6 +96,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=1"></script>
+  <script src="script.js"></script>
 </body>
 </html>
