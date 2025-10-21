@@ -54,25 +54,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const payload = { name, phone, message };
 
     try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbxJ9DKj-zLcAVkqSTyZUy-HujS1xZWCZVIWjePV8Y8z5VFCTrGu0ax0iz7sAX7UntlT/exec",
-        {
-          method: "POST",
-          // ✅ FIX 1: remove explicit "mode: cors" — it’s automatically applied
-          // ✅ FIX 2: add no-cache to avoid caching POSTs
-          cache: "no-cache",
-          headers: {
-            "Content-Type": "application/json",
-            // ✅ FIX 3: optional but helps debugging — request explicit CORS
-            "Accept": "application/json"
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const response = await fetch("https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
       console.log("Server response:", response.status);
 
-      // ✅ FIX 4: check for JSON safely
       if (response.ok) {
         const result = await response.json().catch(() => null);
         console.log("✅ Success response:", result);
