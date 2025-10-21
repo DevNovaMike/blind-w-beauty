@@ -1,11 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contact-form");
 
-  // 🔹 Reveal all hidden sections on page load
-  document.querySelectorAll('.hidden').forEach(section => {
-    section.classList.add('show');
-  });
+  // -----------------------------
+  // DOM utility: show hidden sections
+  // -----------------------------
+  const DOM = {
+    showHiddenSections: () => {
+      const hiddenSections = document.querySelectorAll(".hidden");
+      hiddenSections.forEach((section, index) => {
+        // Add staggered animation delay
+        setTimeout(() => {
+          section.classList.add("show");
+        }, index * 100);
+      });
+    },
+  };
 
+  // Show all sections on page load
+  DOM.showHiddenSections();
+
+  // -----------------------------
+  // Contact form submission
+  // -----------------------------
   if (!form) return;
 
   form.addEventListener("submit", async (event) => {
@@ -18,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec",
         {
           method: "POST",
-          body: formData, // no headers needed!
+          body: formData,
         }
       );
 
