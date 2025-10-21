@@ -29,8 +29,9 @@
 
     <!-- Hair gallery grid -->
     <section class="nail-gallery" aria-label="Hair styling gallery">
+      <!-- First card with video -->
       <article class="gallery-card">
-        <button class="img-btn" onclick="openLightbox('images/S-hair.mp4','Soft Balayage Blend')">
+        <button class="img-btn" onclick="openLightbox('videos/S-hair.mp4','Soft Balayage Blend', true)">
           <img src="images/shair-thumb.jpg" alt="Soft Balayage Blend" />
         </button>
         <h3>Soft Balayage Blend</h3>
@@ -57,10 +58,11 @@
     </section>
   </main>
 
-  <!-- Lightbox -->
+  <!-- Lightbox (supports both image & video) -->
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
     <button class="lb-close" onclick="closeLightbox()" aria-label="Close">✕</button>
     <img id="lightbox-img" src="" alt="" />
+    <video id="lightbox-video" controls style="display:none; max-width:90%; border-radius:10px;"></video>
     <p id="lightbox-caption"></p>
   </div>
 
@@ -69,26 +71,45 @@
   </footer>
 
   <script>
-    function openLightbox(src, caption) {
+    function openLightbox(src, caption, isVideo = false) {
       const lb = document.getElementById('lightbox');
       const img = document.getElementById('lightbox-img');
+      const video = document.getElementById('lightbox-video');
       const cap = document.getElementById('lightbox-caption');
-      img.src = src;
-      img.alt = caption || '';
+
+      if (isVideo) {
+        img.style.display = 'none';
+        video.style.display = 'block';
+        video.src = src;
+        video.play();
+      } else {
+        video.style.display = 'none';
+        img.style.display = 'block';
+        img.src = src;
+      }
+
       cap.textContent = caption || '';
       lb.style.display = 'flex';
       lb.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
     }
+
     function closeLightbox() {
       const lb = document.getElementById('lightbox');
       const img = document.getElementById('lightbox-img');
+      const video = document.getElementById('lightbox-video');
       lb.style.display = 'none';
       lb.setAttribute('aria-hidden', 'true');
       img.src = '';
+      video.pause();
+      video.currentTime = 0;
+      video.src = '';
       document.body.style.overflow = '';
     }
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
   </script>
 
   <script src="script.js"></script>
