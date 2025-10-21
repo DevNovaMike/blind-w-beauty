@@ -70,47 +70,54 @@
   </footer>
 
   <script>
-    function openLightbox(src, caption, isVideo = false) {
-      const lb = document.getElementById('lightbox');
-      const img = document.getElementById('lightbox-img');
-      const video = document.getElementById('lightbox-video');
-      const cap = document.getElementById('lightbox-caption');
+  function openLightbox(src, caption, isVideo = false) {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    const video = document.getElementById('lightbox-video');
+    const cap = document.getElementById('lightbox-caption');
 
-      if (isVideo) {
-        img.style.display = 'none';
-        video.style.display = 'block';
-        video.src = src;
-        video.muted = true; // ✅ ensure it's always muted
-        video.play();
-      } else {
-        video.style.display = 'none';
-        img.style.display = 'block';
-        img.src = src;
-      }
-
-      cap.textContent = caption || '';
-      lb.style.display = 'flex';
-      lb.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
+    if (isVideo) {
+      img.style.display = 'none';
+      video.style.display = 'block';
+      video.src = src;
+      video.muted = true;              // ✅ force muted before play
+      video.volume = 0;                // ✅ double ensure no sound
+      video.setAttribute('muted', ''); // ✅ browser-level enforcement
+      video.play().then(() => {
+        video.muted = true;            // ✅ reapply after autoplay start
+        video.volume = 0;
+      }).catch(err => {
+        console.warn('Autoplay blocked:', err);
+      });
+    } else {
+      video.style.display = 'none';
+      img.style.display = 'block';
+      img.src = src;
     }
 
-    function closeLightbox() {
-      const lb = document.getElementById('lightbox');
-      const img = document.getElementById('lightbox-img');
-      const video = document.getElementById('lightbox-video');
-      lb.style.display = 'none';
-      lb.setAttribute('aria-hidden', 'true');
-      img.src = '';
-      video.pause();
-      video.currentTime = 0;
-      video.src = '';
-      document.body.style.overflow = '';
-    }
+    cap.textContent = caption || '';
+    lb.style.display = 'flex';
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeLightbox();
-    });
-  </script>
+  function closeLightbox() {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    const video = document.getElementById('lightbox-video');
+    lb.style.display = 'none';
+    lb.setAttribute('aria-hidden', 'true');
+    img.src = '';
+    video.pause();
+    video.currentTime = 0;
+    video.src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
 
   <script src="script.js"></script>
 </body>
