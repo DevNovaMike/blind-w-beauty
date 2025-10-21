@@ -73,12 +73,14 @@
   <!-- CONTACT / APPOINTMENT -->
   <section id="contact" class="hidden">
     <h2>Book an Appointment</h2>
-    <form id="contactForm">
-      <input type="text" name="name" placeholder="Full Name" required>
-      <input type="tel" name="phone" placeholder="Phone Number" required>
-      <textarea name="message" placeholder="Your Message or Service Request" required></textarea>
-      <button type="submit">Book Now</button>
-    </form>
+    <!-- HTML form - replace only the form element in your page -->
+<form id="contactForm" action="YOUR_WEBAPP_URL" method="POST" accept-charset="UTF-8">
+  <input type="text" name="name" placeholder="Full Name" required />
+  <input type="text" name="phone" placeholder="Your Phone Number" required />
+  <textarea name="message" placeholder="Preferred date, time, and service details" required></textarea>
+
+  <button type="submit">Book Now</button>
+</form>
   </section>
 
   <footer>
