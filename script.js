@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbyzefOAw9DFzL5qA2nG5SeXsJQBNa1WMtMV4tyuazW3uFz-mQBomygXt9d8WOlNs_C7/exec",
+        "https://script.google.com/macros/s/AKfycbxJ9DKj-zLcAVkqSTyZUy-HujS1xZWCZVIWjePV8Y8z5VFCTrGu0ax0iz7sAX7UntlT/exec",
         {
           method: "POST",
           mode: "cors",
