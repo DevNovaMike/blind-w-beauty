@@ -68,9 +68,9 @@
   <section id="contact" class="hidden">
     <h2>Book an Appointment</h2>
     <form id="contact-form">
-      <input type="text" name="name" placeholder="Name" required />
-      <input type="tel" name="phone" placeholder="Phone" required />
-      <textarea name="message" placeholder="Message" required></textarea>
+      <input id="name" type="text" name="name" placeholder="Name" required />
+      <input id="phone" type="tel" name="phone" placeholder="Phone" required />
+      <textarea id="message" name="message" placeholder="Message" required></textarea>
       <button type="submit">Book Now</button>
     </form>
     <p id="status" style="text-align:center;font-weight:bold;margin-top:10px;"></p>
@@ -86,7 +86,7 @@
     </div>
   </footer>
 
-  <!-- ✅ FIXED SCRIPT -->
+  <!-- ✅ ONLY SCRIPT UPDATED -->
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec";
 
@@ -97,41 +97,64 @@
       if (btn) btn.textContent = isDark ? "Light Mode ☀️" : "Dark Mode 🌙";
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
       if (localStorage.getItem("darkMode") === "enabled") {
         document.body.classList.add("dark-mode");
         const btn = document.querySelector('button[onclick="toggleDarkMode()"]');
         if (btn) btn.textContent = "Light Mode ☀️";
       }
 
-      document.body.style.opacity = "1";
-
       const form = document.getElementById("contact-form");
       const status = document.getElementById("status");
+
+      // ✅ Test connection to Apps Script
+      console.log("🔍 Testing Apps Script URL:", SCRIPT_URL);
+      try {
+        const testRes = await fetch(SCRIPT_URL);
+        console.log("✅ Test response:", testRes.status);
+      } catch (err) {
+        console.error("❌ Apps Script test failed:", err);
+      }
+
       if (!form) return;
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const formData = new FormData(form);
         status.textContent = "Sending...";
         const btn = form.querySelector("button[type='submit']");
         if (btn) { btn.disabled = true; btn.textContent = "Booking..."; }
 
+        const payload = {
+          name: document.getElementById("name").value,
+          phone: document.getElementById("phone").value,
+          message: document.getElementById("message").value
+        };
+
+        console.log("🚀 Sending data:", payload);
+
         try {
-          const response = await fetch(SCRIPT_URL, {
+          const res = await fetch(SCRIPT_URL, {
             method: "POST",
-            mode: "no-cors", // ✅ Prevents CORS preflight 405 error
-            body: formData
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
           });
 
-          status.textContent = "✅ Appointment sent successfully!";
-          form.reset();
-        } catch (err) {
-          console.error("Submission failed:", err);
-          status.textContent = "❌ Failed to send. Please try again.";
-        }
+          console.log("📡 Response status:", res.status);
+          const data = await res.json().catch(() => ({}));
+          console.log("📦 Response data:", data);
 
-        if (btn) { btn.disabled = false; btn.textContent = "Book Now"; }
+          if (res.ok) {
+            status.textContent = "✅ Appointment sent successfully!";
+            form.reset();
+          } else {
+            status.textContent = "⚠️ Failed to send appointment.";
+          }
+        } catch (err) {
+          console.error("❌ Fetch/network error:", err);
+          status.textContent = "❌ Could not send appointment. Check console for details.";
+        } finally {
+          if (btn) { btn.disabled = false; btn.textContent = "Book Now"; }
+        }
       });
     });
   </script>
