@@ -1,69 +1,101 @@
+// -----------------------------
+// Safe DOM Ready Wrapper
+// -----------------------------
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ DOM fully loaded and parsed");
+  console.log("✅ DOM fully loaded");
 
-  // Make all hidden sections visible immediately (safety check)
-  document.querySelectorAll(".hidden").forEach(el => {
-    el.classList.add("show");
+  // Make page visible
+  document.body.style.opacity = "1";
+
+  // -----------------------------
+  // Dark Mode Toggle
+  // -----------------------------
+  function toggleDarkMode() {
+    const isDark = document.body.classList.toggle("dark-mode");
+    localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
+    const btn = document.querySelector('button[onclick="toggleDarkMode()"]');
+    if (btn) btn.textContent = isDark ? "Light Mode ☀️" : "Dark Mode 🌙";
+  }
+  window.toggleDarkMode = toggleDarkMode;
+
+  // Restore dark mode state
+  if (localStorage.getItem("darkMode") === "enabled") {
+    document.body.classList.add("dark-mode");
+    const btn = document.querySelector('button[onclick="toggleDarkMode()"]');
+    if (btn) btn.textContent = "Light Mode ☀️";
+  }
+
+  // -----------------------------
+  // Always Reveal Sections
+  // -----------------------------
+  document.querySelectorAll(".hidden").forEach(el => el.classList.add("show"));
+
+  // -----------------------------
+  // Appointment Form Submission
+  // -----------------------------
+  const form = document.getElementById("contactForm");
+  if (!form) return;
+
+  const button = form.querySelector("button[type='submit']");
+
+  form.addEventListener("input", () => {
+    button.disabled = !form.checkValidity();
   });
 
-  // Scroll animation observer
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-      }
-    });
-  }, { threshold: 0.2 });
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    button.disabled = true;
+    button.textContent = "Booking...";
 
-  // Observe all hidden elements
-  document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+    const name = form.name.value.trim();
+    const phone = form.phone.value.trim();
+    const message = form.message.value.trim();
 
-  // Contact form submission (if you have one)
-  const form = document.getElementById("contact-form");
-  if (form) {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
+    const payload = { name, phone, message };
 
-      try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec", {
+    try {
+      // ✅ Your latest Google Apps Script Web App URL
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec",
+        {
           method: "POST",
-          body: JSON.stringify(data),
           headers: {
             "Content-Type": "application/json",
+            "Accept": "application/json"
           },
-        });
+          body: JSON.stringify(payload),
+          cache: "no-cache"
+        }
+      );
 
-        if (!response.ok) throw new Error("Network response was not ok");
-        console.log("✅ Form submitted successfully");
-        alert("Message sent successfully!");
-        form.reset();
-      } catch (error) {
-        console.error("❌ Submission error:", error);
-        alert("There was an error sending your message. Please try again later.");
+      console.log("🌐 Response status:", response.status);
+
+      // Try parsing JSON response
+      let result = null;
+      try {
+        result = await response.json();
+      } catch (parseErr) {
+        console.warn("⚠️ Could not parse JSON:", parseErr);
       }
-    });
-  }
 
-  // Optional: Video modal logic (if you use videos)
-  const videoModal = document.getElementById("videoModal");
-  const modalVideo = document.getElementById("modalVideo");
-
-  document.querySelectorAll(".video-thumb").forEach(thumb => {
-    thumb.addEventListener("click", () => {
-      const videoSrc = thumb.dataset.video;
-      modalVideo.src = videoSrc + "?autoplay=1&mute=1"; // ensure muted autoplay
-      videoModal.style.display = "flex";
-    });
+      // Success check
+      if (response.ok && result && result.success) {
+        console.log("✅ Success:", result);
+        Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
+        form.reset();
+      } else if (response.ok) {
+        // Some success cases might not send JSON
+        Swal.fire("✨ Appointment Sent!", "Your message was received successfully.", "success");
+        form.reset();
+      } else {
+        Swal.fire("⚠️ Error", "Something went wrong — please try again later.", "error");
+      }
+    } catch (err) {
+      console.error("❌ Submission error:", err);
+      Swal.fire("❌ Network Error", "Please check your connection and try again.", "error");
+    } finally {
+      button.disabled = false;
+      button.textContent = "Book Now";
+    }
   });
-
-  const closeBtn = document.getElementById("closeModal");
-  if (closeBtn) {
-    closeBtn.addEventListener("click", () => {
-      videoModal.style.display = "none";
-      modalVideo.pause();
-      modalVideo.src = "";
-    });
-  }
 });
