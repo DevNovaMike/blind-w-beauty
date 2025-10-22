@@ -3,12 +3,9 @@
 // -----------------------------
 document.addEventListener("DOMContentLoaded", () => {
   console.log("✅ DOM fully loaded");
-  const form = document.getElementById("contact-form");
 
   // Make page visible
   document.body.style.opacity = "1";
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
 
   // -----------------------------
   // Dark Mode Toggle
@@ -55,60 +52,33 @@ document.addEventListener("DOMContentLoaded", () => {
     const message = form.message.value.trim();
 
     const payload = { name, phone, message };
-    const formData = new FormData(form);
 
-try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify(payload),
-          cache: "no-cache"
-        }
-      );
-      const response = await fetch("https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec", {
+    try {
+      const response = await fetch("YOUR_WEB_APP_URL", {
         method: "POST",
-        body: formData, // no headers needed!
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(payload),
       });
 
-      console.log("🌐 Response status:", response.status);
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const result = await response.json();
+      console.log("Server response:", response.status);
 
-      // Try parsing JSON response
-      let result = null;
-      try {
-        result = await response.json();
-      } catch (parseErr) {
-        console.warn("⚠️ Could not parse JSON:", parseErr);
-      }
-
-      // Success check
-      if (response.ok && result && result.success) {
-        console.log("✅ Success:", result);
+      if (response.ok) {
+        const result = await response.json().catch(() => null);
+        console.log("✅ Success response:", result);
         Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
         form.reset();
-      } else if (response.ok) {
-        // Some success cases might not send JSON
-        Swal.fire("✨ Appointment Sent!", "Your message was received successfully.", "success");
-      if (result.success) {
-        alert("✅ Message sent successfully!");
-form.reset();
-} else {
+      } else {
         Swal.fire("⚠️ Error", "Something went wrong — please try again later.", "error");
-        alert("❌ Error: " + result.error);
-}
-} catch (err) {
-console.error("❌ Submission error:", err);
+      }
+    } catch (err) {
+      console.error("❌ Submission error:", err);
       Swal.fire("❌ Network Error", "Please check your connection and try again.", "error");
     } finally {
       button.disabled = false;
       button.textContent = "Book Now";
-      alert("Error sending message. Please try again later.");
-}
-});
+    }
+  });
 });
