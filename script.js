@@ -1,64 +1,69 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // -----------------------------
-  // Dark Mode Toggle
-  // -----------------------------
-  function toggleDarkMode() {
-    const isDark = document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
-    const btn = document.querySelector('button[onclick="toggleDarkMode()"]');
-    if (btn) btn.textContent = isDark ? "Light Mode ☀️" : "Dark Mode 🌙";
-  }
+  console.log("✅ DOM fully loaded and parsed");
 
-  // restore dark mode
-  if (localStorage.getItem("darkMode") === "enabled") {
-    document.body.classList.add("dark-mode");
-    const btn = document.querySelector('button[onclick="toggleDarkMode()"]');
-    if (btn) btn.textContent = "Light Mode ☀️";
-  }
-
-  window.toggleDarkMode = toggleDarkMode; // make it global for button onclick
-
-  // -----------------------------
-  // Show all hidden sections (fade in)
-  // -----------------------------
-  const hiddenSections = document.querySelectorAll(".hidden");
-  hiddenSections.forEach((section, index) => {
-    setTimeout(() => {
-      section.classList.add("show");
-      section.classList.remove("hidden");
-    }, index * 100);
+  // Make all hidden sections visible immediately (safety check)
+  document.querySelectorAll(".hidden").forEach(el => {
+    el.classList.add("show");
   });
 
-  // -----------------------------
-  // Contact form submission
-  // -----------------------------
-  const form = document.getElementById("contact-form");
-  if (!form) return;
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const status = document.getElementById("status");
-    status.textContent = "Sending...";
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec",
-        { method: "POST", body: formData }
-      );
-
-      if (!response.ok) throw new Error("Network response not OK");
-      const result = await response.json();
-
-      if (result.success) {
-        status.textContent = "✅ Appointment sent successfully!";
-        form.reset();
-      } else {
-        status.textContent = "❌ Error: " + (result.error || "Something went wrong");
+  // Scroll animation observer
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
       }
-    } catch (err) {
-      console.error(err);
-      status.textContent = "⚠️ Failed to send message. Please try again.";
-    }
+    });
+  }, { threshold: 0.2 });
+
+  // Observe all hidden elements
+  document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+
+  // Contact form submission (if you have one)
+  const form = document.getElementById("contact-form");
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) throw new Error("Network response was not ok");
+        console.log("✅ Form submitted successfully");
+        alert("Message sent successfully!");
+        form.reset();
+      } catch (error) {
+        console.error("❌ Submission error:", error);
+        alert("There was an error sending your message. Please try again later.");
+      }
+    });
+  }
+
+  // Optional: Video modal logic (if you use videos)
+  const videoModal = document.getElementById("videoModal");
+  const modalVideo = document.getElementById("modalVideo");
+
+  document.querySelectorAll(".video-thumb").forEach(thumb => {
+    thumb.addEventListener("click", () => {
+      const videoSrc = thumb.dataset.video;
+      modalVideo.src = videoSrc + "?autoplay=1&mute=1"; // ensure muted autoplay
+      videoModal.style.display = "flex";
+    });
   });
+
+  const closeBtn = document.getElementById("closeModal");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      videoModal.style.display = "none";
+      modalVideo.pause();
+      modalVideo.src = "";
+    });
+  }
 });
