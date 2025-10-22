@@ -4,37 +4,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    console.log("🚀 Sending form data...");
-
-    const formData = {
-      name: form.name.value,
-      email: form.email.value,
-      phone: form.phone.value,
-      message: form.message.value,
+    const data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      phone: form.phone.value.trim(),
+      message: form.message.value.trim(),
     };
+    console.log("🚀 Sending data:", data);
 
     try {
       const response = await fetch(scriptURL, {
         method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
 
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const result = await response.json();
-      console.log("✅ Server response:", result);
+      console.log("✅ Response:", result);
 
       if (result.success) {
         alert("✅ Appointment sent successfully!");
         form.reset();
       } else {
-        alert("⚠️ Failed to send appointment. Please try again.");
+        alert("⚠️ Failed: " + (result.error || "unknown error"));
       }
-    } catch (error) {
-      console.error("❌ Submission error:", error);
-      alert("❌ There was an error sending your appointment.");
+    } catch (err) {
+      console.error("❌ Fetch/network error:", err);
+      alert("❌ Could not send. Check console for details.");
     }
   });
 });
