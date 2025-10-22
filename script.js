@@ -1,12 +1,5 @@
-// -----------------------------
-// Safe DOM Ready Wrapper
-// -----------------------------
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ DOM fully loaded");
-
-  // Make page visible
-  document.body.style.opacity = "1";
-
+  const form = document.getElementById("contact-form");
   // -----------------------------
   // Dark Mode Toggle
   // -----------------------------
@@ -16,69 +9,84 @@ document.addEventListener("DOMContentLoaded", () => {
     const btn = document.querySelector('button[onclick="toggleDarkMode()"]');
     if (btn) btn.textContent = isDark ? "Light Mode ☀️" : "Dark Mode 🌙";
   }
-  window.toggleDarkMode = toggleDarkMode;
 
-  // Restore dark mode state
+  // restore dark mode
   if (localStorage.getItem("darkMode") === "enabled") {
     document.body.classList.add("dark-mode");
     const btn = document.querySelector('button[onclick="toggleDarkMode()"]');
     if (btn) btn.textContent = "Light Mode ☀️";
   }
 
-  // -----------------------------
-  // Always Reveal Sections
-  // -----------------------------
-  document.querySelectorAll(".hidden").forEach(el => el.classList.add("show"));
+  window.toggleDarkMode = toggleDarkMode; // make it global for button onclick
 
-  // -----------------------------
-  // Appointment Form Submission
-  // -----------------------------
-  const form = document.getElementById("contactForm");
-  if (!form) return;
+// -----------------------------
+  // DOM utility: show hidden sections
+  // Show all hidden sections (fade in)
+// -----------------------------
+  const DOM = {
+    showHiddenSections: () => {
+      const hiddenSections = document.querySelectorAll(".hidden");
+      hiddenSections.forEach((section, index) => {
+        // Add staggered animation delay
+        setTimeout(() => {
+          section.classList.add("show");
+        }, index * 100);
+      });
+    },
+  };
 
-  const button = form.querySelector("button[type='submit']");
-
-  form.addEventListener("input", () => {
-    button.disabled = !form.checkValidity();
+  // Show all sections on page load
+  DOM.showHiddenSections();
+  const hiddenSections = document.querySelectorAll(".hidden");
+  hiddenSections.forEach((section, index) => {
+    setTimeout(() => {
+      section.classList.add("show");
+      section.classList.remove("hidden");
+    }, index * 100);
   });
+
+// -----------------------------
+// Contact form submission
+// -----------------------------
+  const form = document.getElementById("contact-form");
+if (!form) return;
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    button.disabled = true;
-    button.textContent = "Booking...";
+    const status = document.getElementById("status");
+    status.textContent = "Sending...";
+const formData = new FormData(form);
 
-    const name = form.name.value.trim();
-    const phone = form.phone.value.trim();
-    const message = form.message.value.trim();
+try {
+const response = await fetch(
+"https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec",
+        {
+          method: "POST",
+          body: formData,
+        }
+        { method: "POST", body: formData }
+);
 
-    const payload = { name, phone, message };
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      if (!response.ok) throw new Error("Network response not OK");
+const result = await response.json();
 
-    try {
-      const response = await fetch("YOUR_WEB_APP_URL", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      console.log("Server response:", response.status);
-
-      if (response.ok) {
-        const result = await response.json().catch(() => null);
-        console.log("✅ Success response:", result);
-        Swal.fire("✨ Appointment Sent!", "We'll contact you soon to confirm.", "success");
-        form.reset();
-      } else {
-        Swal.fire("⚠️ Error", "Something went wrong — please try again later.", "error");
-      }
-    } catch (err) {
+if (result.success) {
+        alert("✅ Message sent successfully!");
+        status.textContent = "✅ Appointment sent successfully!";
+form.reset();
+} else {
+        alert("❌ Error: " + result.error);
+        status.textContent = "❌ Error: " + (result.error || "Something went wrong");
+}
+} catch (err) {
       console.error("❌ Submission error:", err);
-      Swal.fire("❌ Network Error", "Please check your connection and try again.", "error");
-    } finally {
-      button.disabled = false;
-      button.textContent = "Book Now";
-    }
-  });
+      alert("Error sending message. Please try again later.");
+      console.error(err);
+      status.textContent = "⚠️ Failed to send message. Please try again.";
+}
+});
 });
