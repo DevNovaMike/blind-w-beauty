@@ -1,47 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector("#contact-form");
-
-  // 👇 Change this to your real deployed Apps Script URL
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec";
-
-  // ✅ Quick test when page loads
-  console.log("🔍 Testing Google Apps Script URL:", SCRIPT_URL);
-  fetch(SCRIPT_URL)
-    .then(r => r.json())
-    .then(d => console.log("✅ Connected to Apps Script:", d))
-    .catch(e => console.error("❌ Could not connect to Apps Script:", e));
+  const form = document.getElementById("appointmentForm");
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec";
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    console.log("🚀 Sending form data...");
 
     const formData = {
-      name: document.querySelector("#name").value,
-      email: document.querySelector("#email").value,
-      message: document.querySelector("#message").value,
+      name: form.name.value,
+      email: form.email.value,
+      phone: form.phone.value,
+      message: form.message.value,
     };
 
-    console.log("🚀 Sending data:", formData);
-
     try {
-      const res = await fetch(SCRIPT_URL, {
+      const response = await fetch(scriptURL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(formData),
       });
 
-      console.log("📡 Response status:", res.status);
-      const data = await res.json();
-      console.log("✅ Server replied:", data);
+      const result = await response.json();
+      console.log("✅ Server response:", result);
 
-      if (data.status === "success") {
+      if (result.success) {
         alert("✅ Appointment sent successfully!");
         form.reset();
       } else {
-        alert("⚠️ Error: " + data.message);
+        alert("⚠️ Failed to send appointment. Please try again.");
       }
-    } catch (err) {
-      console.error("❌ Fetch/network error:", err);
-      alert("❌ Could not send appointment. Check console for details.");
+    } catch (error) {
+      console.error("❌ Submission error:", error);
+      alert("❌ There was an error sending your appointment.");
     }
   });
 });
