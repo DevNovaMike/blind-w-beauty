@@ -86,7 +86,7 @@
     </div>
   </footer>
 
-  <!-- ✅ UPDATED SCRIPT -->
+  <!-- ✅ FIXED SCRIPT -->
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec";
 
@@ -117,52 +117,17 @@
         const btn = form.querySelector("button[type='submit']");
         if (btn) { btn.disabled = true; btn.textContent = "Booking..."; }
 
-        let success = false;
         try {
-          const resp = await fetch(SCRIPT_URL, { method: "POST", body: formData });
-          if (resp.ok) {
-            const txt = await resp.text();
-            if (txt.toLowerCase().includes("success") || txt.toLowerCase().includes("true")) {
-              success = true;
-            }
-          }
-        } catch (err) {
-          console.warn("Fetch failed, switching to fallback:", err);
-        }
-
-        if (!success) {
-          // Fallback: invisible form submit (no CORS restriction)
-          const fallback = document.createElement("form");
-          fallback.action = SCRIPT_URL;
-          fallback.method = "POST";
-          fallback.enctype = "multipart/form-data";
-          fallback.target = "hiddenFrame";
-          fallback.style.display = "none";
-
-          const iframe = document.getElementById("hiddenFrame") || Object.assign(document.createElement("iframe"), {
-            name: "hiddenFrame",
-            id: "hiddenFrame",
-            style: "display:none;"
+          const response = await fetch(SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors", // ✅ Prevents CORS preflight 405 error
+            body: formData
           });
-          document.body.appendChild(iframe);
 
-          ["name","phone","message"].forEach(n => {
-            const input = document.createElement("input");
-            input.type = "hidden";
-            input.name = n;
-            input.value = form[n].value;
-            fallback.appendChild(input);
-          });
-          document.body.appendChild(fallback);
-          fallback.submit();
-          setTimeout(() => fallback.remove(), 1000);
-          success = true;
-        }
-
-        if (success) {
           status.textContent = "✅ Appointment sent successfully!";
           form.reset();
-        } else {
+        } catch (err) {
+          console.error("Submission failed:", err);
           status.textContent = "❌ Failed to send. Please try again.";
         }
 
