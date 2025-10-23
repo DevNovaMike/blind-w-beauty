@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const status = document.querySelector("#status");
 
   // 🔗 Your actual Apps Script URL here:
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2CC60RjdFwHmYnSE7YU8TO-5dUMqbmTikMwT03H3M31vCuc_ifp4b2nwMWoOdG1RYpg/exec";
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
