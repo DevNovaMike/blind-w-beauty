@@ -20,9 +20,9 @@ document.getElementById("contact-form").addEventListener("submit", async (e) => 
 
     const result = await response.json();
     console.log("✅ Success:", result);
-    alert("Message sent successfully!");
+    alert("Message sent!");
   } catch (error) {
     console.error("❌ Fetch error:", error);
-    alert("Something went wrong. Please try again.");
+    alert("Something went wrong.");
   }
 });
