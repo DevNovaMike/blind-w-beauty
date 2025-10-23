@@ -64,16 +64,15 @@
     </div>
   </section>
 
-  <!-- CONTACT / APPOINTMENT -->
+  <!-- ✅ CLEAN, WORKING CONTACT / APPOINTMENT FORM -->
   <section id="contact" class="hidden">
     <h2>Book an Appointment</h2>
     <form id="contact-form">
-  <input type="text" name="name" placeholder="Name" required />
-  <input type="tel" name="phone" placeholder="Phone" required />
-  <textarea name="message" placeholder="Message" required></textarea>
-  <button type="submit">Book Now</button>
-</form>
-<p id="status"></p>
+      <input type="text" name="name" placeholder="Name" required />
+      <input type="tel" name="phone" placeholder="Phone" required />
+      <textarea name="message" placeholder="Message" required></textarea>
+      <button type="submit">Book Now</button>
+    </form>
     <p id="status" style="text-align:center;font-weight:bold;margin-top:10px;"></p>
   </section>
 
@@ -87,7 +86,7 @@
     </div>
   </footer>
 
-  <!-- ✅ FINAL CORS-PROOF SCRIPT -->
+  <!-- ✅ FINAL SCRIPT (fresh + simple) -->
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqqEPRwXvYVsux1MLQjnQx41-RCMgX2u4nnNZxnSvhR86PKwrT-kTrxj4G0AeStBfTag/exec";
 
@@ -108,41 +107,43 @@
       const form = document.getElementById("contact-form");
       const status = document.getElementById("status");
 
-      form.addEventListener("submit", (e) => {
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        status.textContent = "Sending...";
+        status.textContent = "⏳ Sending...";
         const btn = form.querySelector("button[type='submit']");
-        if (btn) { btn.disabled = true; btn.textContent = "Booking..."; }
+        btn.disabled = true;
+        btn.textContent = "Booking...";
 
-        // ✅ Invisible iframe method (no CORS issues)
-        const iframe = document.createElement("iframe");
-        iframe.name = "hiddenFrame";
-        iframe.style.display = "none";
-        document.body.appendChild(iframe);
+        const data = {
+          name: form.name.value.trim(),
+          phone: form.phone.value.trim(),
+          message: form.message.value.trim()
+        };
 
-        const tempForm = document.createElement("form");
-        tempForm.action = SCRIPT_URL;
-        tempForm.method = "POST";
-        tempForm.target = "hiddenFrame";
-        tempForm.style.display = "none";
+        console.log("🚀 Sending data:", data);
 
-        ["name", "phone", "message"].forEach((n) => {
-          const input = document.createElement("input");
-          input.name = n;
-          input.value = form[n].value;
-          tempForm.appendChild(input);
-        });
+        try {
+          const response = await fetch(SCRIPT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          const result = await response.json();
+          console.log("✅ Server response:", result);
 
-        document.body.appendChild(tempForm);
-        tempForm.submit();
-
-        setTimeout(() => {
-          tempForm.remove();
-          iframe.remove();
-          status.textContent = "✅ Appointment sent successfully!";
-          form.reset();
-          if (btn) { btn.disabled = false; btn.textContent = "Book Now"; }
-        }, 1500);
+          if (result.success) {
+            status.textContent = "✅ Appointment booked successfully!";
+            form.reset();
+          } else {
+            status.textContent = "❌ Error: " + (result.error || "Unknown issue");
+          }
+        } catch (err) {
+          console.error("❌ Fetch error:", err);
+          status.textContent = "⚠️ Network error. Please try again.";
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "Book Now";
+        }
       });
     });
   </script>
