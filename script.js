@@ -1,27 +1,42 @@
-document.getElementById("appointment-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("form");
+  const status = document.querySelector("#status");
 
-  const formData = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    message: document.getElementById("message").value
-  };
+  // 🔗 Your actual Apps Script URL here:
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec";
 
-  console.log("📤 Sending data:", formData);
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    status.textContent = "⏳ Sending...";
 
-  try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbzqqEPRwXvYVsux1MLQjnQx41-RCMgX2u4nnNZxnSvhR86PKwrT-kTrxj4G0AeStBfTag/exec", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData)
-    });
+    const formData = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      phone: form.phone.value.trim(),
+      message: form.message.value.trim(),
+    };
 
-    const result = await response.json();
-    console.log("✅ Server response:", result);
+    console.log("🚀 Sending:", formData);
 
-    alert(result.message || "Message sent successfully!");
-  } catch (error) {
-    console.error("❌ Error:", error);
-    alert("There was an error sending your message.");
-  }
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await res.json();
+      console.log("✅ Response:", result);
+
+      if (result.success) {
+        status.textContent = "✅ Message saved successfully!";
+        form.reset();
+      } else {
+        status.textContent = "❌ Error: " + (result.error || "Unknown");
+      }
+    } catch (err) {
+      console.error("❌ Fetch error:", err);
+      status.textContent = "⚠️ Network error — check console for details.";
+    }
+  });
 });
