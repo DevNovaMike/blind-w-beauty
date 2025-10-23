@@ -1,67 +1,57 @@
-// ===============================
-// Blind w Beauty – Appointment Form Script
-// ===============================
+// =============================
+//  FORM SUBMISSION HANDLER
+// =============================
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("contact-form");
-  const status = document.getElementById("status");
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec";
+  const form = document.getElementById("appointmentForm");
 
   if (!form) {
-    console.error("❌ Form not found: #contact-form");
+    console.error("❌ appointmentForm not found in HTML");
     return;
   }
 
-  console.log("✅ Form loaded and ready to send appointments.");
-
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    console.log("🚀 Submitting appointment...");
 
-    const btn = form.querySelector("button[type='submit']");
-    if (btn) {
-      btn.disabled = true;
-      btn.textContent = "Booking...";
-    }
-    if (status) status.textContent = "Sending...";
+    // ====== Replace with your actual deployed Apps Script URL ======
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbwR7Kg7HBrXxA3H0bd0S2J0OBQWe0efzeyQfQFbsANTR2YL8-kvX4boLXfykkJbFDEXYQ/exec";
 
-    // ✅ Create hidden iframe to bypass CORS
-    const iframe = document.createElement("iframe");
-    iframe.name = "hiddenFrame";
-    iframe.style.display = "none";
-    document.body.appendChild(iframe);
+    // ====== Get form data ======
+    const formData = {
+      name: document.getElementById("name")?.value.trim() || "",
+      email: document.getElementById("email")?.value.trim() || "",
+      phone: document.getElementById("phone")?.value.trim() || "",
+      message: document.getElementById("message")?.value.trim() || "",
+    };
 
-    // ✅ Build a temporary form to send data
-    const tempForm = document.createElement("form");
-    tempForm.action = SCRIPT_URL;
-    tempForm.method = "POST";
-    tempForm.target = "hiddenFrame";
-    tempForm.style.display = "none";
+    console.log("🚀 Sending data to Apps Script:", formData);
 
-    // Add form fields
-    ["name", "phone", "message"].forEach((n) => {
-      const input = document.createElement("input");
-      input.name = n;
-      input.value = form[n].value.trim();
-      tempForm.appendChild(input);
-    });
+    try {
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    document.body.appendChild(tempForm);
-
-    // ✅ Submit the form (sends data to Apps Script)
-    tempForm.submit();
-
-    // ✅ Confirm success after short delay
-    setTimeout(() => {
-      console.log("✅ Appointment submitted to Google Sheets.");
-      tempForm.remove();
-      iframe.remove();
-
-      if (btn) {
-        btn.disabled = false;
-        btn.textContent = "Book Now";
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      if (status) status.textContent = "✅ Appointment sent successfully!";
-      form.reset();
-    }, 1500);
+
+      const result = await response.json();
+      console.log("✅ Apps Script response:", result);
+
+      if (result.success) {
+        alert("✅ Your appointment has been sent successfully!");
+        form.reset();
+      } else {
+        alert("⚠️ Something went wrong. Please try again later.");
+      }
+    } catch (error) {
+      console.error("❌ Error sending to Apps Script:", error);
+      alert("❌ Failed to send. Please check your connection and try again.");
+    }
   });
 });
