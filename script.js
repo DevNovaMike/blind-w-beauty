@@ -1,42 +1,28 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector("form");
-  const status = document.querySelector("#status");
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxkvxSQYyvCD3omOK6crkgeyrxt1jY62EeXO9jzm6hdJ8UgE3mkpB7B9FVlI1QZJNzY/exec";
 
-  // 🔗 Your actual Apps Script URL here:
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2CC60RjdFwHmYnSE7YU8TO-5dUMqbmTikMwT03H3M31vCuc_ifp4b2nwMWoOdG1RYpg/exec";
+document.getElementById("contact-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    status.textContent = "⏳ Sending...";
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const message = document.getElementById("message").value.trim();
 
-    const formData = {
-      name: form.name.value.trim(),
-      email: form.email.value.trim(),
-      phone: form.phone.value.trim(),
-      message: form.message.value.trim(),
-    };
+  const formData = { name, phone, message };
+  console.log("🚀 Sending data:", formData);
 
-    console.log("🚀 Sending:", formData);
+  try {
+    const response = await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
 
-    try {
-      const res = await fetch(SCRIPT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await res.json();
-      console.log("✅ Response:", result);
-
-      if (result.success) {
-        status.textContent = "✅ Message saved successfully!";
-        form.reset();
-      } else {
-        status.textContent = "❌ Error: " + (result.error || "Unknown");
-      }
-    } catch (err) {
-      console.error("❌ Fetch error:", err);
-      status.textContent = "⚠️ Network error — check console for details.";
-    }
-  });
+    const result = await response.json();
+    console.log("✅ Success:", result);
+    alert("Message sent successfully!");
+  } catch (error) {
+    console.error("❌ Fetch error:", error);
+    alert("Something went wrong. Please try again.");
+  }
 });
