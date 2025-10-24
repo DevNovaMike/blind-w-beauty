@@ -16,6 +16,9 @@ opacity: 1 !important; /* 🔥 Prevents invisible body flash */
   HEADER
   =========================== */
 header {
+display: flex;
+flex-direction: column;
+align-items: center;
 padding: 30px 20px;
 }
 
@@ -357,11 +360,12 @@ cursor: pointer;
    HEADER BUTTONS
    =========================== */
 .header-buttons {
+  width: 100%;
+  justify-content: space-between;
   position: absolute;
   top: 20px;
-  right: 20px;
+  left: 0px;
   display: flex;
-  gap: 10px;
 }
 
 .socials-btn {
