@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Blind w Beauty — Nail Styles</title>
 
-  <!-- Fonts & icons -->
+  <!-- Fonts & icons (matches your main site) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-  <!-- Main stylesheet -->
+  <!-- Use your existing style.css -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -26,40 +26,43 @@
       <a class="back-link" href="index.html" aria-label="Back to homepage">← Back to Services</a>
     </section>
 
-    <!-- ✅ Updated to match style.css (.review-gallery) -->
-    <section class="review-gallery" aria-label="Nail styles gallery">
-      <!-- 1st Set -->
-      <article class="review-card">
-        <button class="img-btn" onclick="openLightbox('images/siri.jpg','Hello Kitty Set')">
-          <img src="images/siri-thumb.jpg" alt="Hello Kitty Set" />
+    <!-- Gallery grid -->
+    <section class="nail-gallery" aria-label="Nail styles gallery">
+      <!-- Example card - duplicate/replace these for each style -->
+      <article class="gallery-card">
+        <button class="img-btn" onclick="openLightbox('images/siri.jpg','Classic French')">
+        <button class="img-btn" onclick="openLightbox('images/siri.jpg','Hello Kitty Nails')">
+          <img src="images/siri-thumb.jpg" data-full="images/siri.jpg" alt="Classic French manicure" />
         </button>
+        <h3>Hello Kitty Nails</h3>
         <h3>Hello Kitty Set</h3>
         <p>Cheetah Print with 3D Flowers.</p>
       </article>
 
-      <!-- 2nd Set -->
-      <article class="review-card">
-        <button class="img-btn" onclick="openLightbox('images/zaylia.jpg','Yellow French Tip Set')">
-          <img src="images/zaylia-thumb.jpg" alt="Yellow French Tip Set" />
+      <article class="gallery-card">
+        <button class="img-btn" onclick="openLightbox('images/zaylia.jpg','Glitter Ombre')">
+        <button class="img-btn" onclick="openLightbox('images/zaylia.jpg','Yellow French Tip Nails')">
+          <img src="images/zaylia-thumb.jpg" data-full="images/zaylia.jpg" alt="Glitter ombre nails" />
         </button>
-        <h3>Yellow French Tip Set</h3>
+        <h3> Yellow French Tip Set</h3></h3>
         <p>Subtle fade into sparkle — perfect for events.</p>
       </article>
 
-      <!-- 3rd Set -->
-      <article class="review-card">
-        <button class="img-btn" onclick="openLightbox('images/bejou.jpg','Halloween Set')">
-          <img src="images/bejou-thumb.jpg" alt="Halloween Set" />
+      <article class="gallery-card">
+        <button class="img-btn" onclick="openLightbox('images/nails3.jpg','Matte Black')">
+          <img src="images/nails3-thumb.jpg" data-full="images/nails3.jpg" alt="Matte black nails" />
         </button>
-        <h3>Halloween Set</h3>
-        <p>Bold matte finish for an edgy, spooky vibe.</p>
+        <h3>Matte Black</h3>
+        <p>Bold matte finish for an edgy, modern vibe.</p>
       </article>
+
+      <!-- Add more cards here following same structure -->
     </section>
   </main>
 
-  <!-- Lightbox -->
-  <div id="lightbox" class="review-lightbox" role="dialog" aria-modal="true" aria-hidden="true">
-    <button class="close-btn" onclick="closeLightbox()" aria-label="Close">✕</button>
+  <!-- Lightbox overlay -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="Close">✕</button>
     <img id="lightbox-img" src="" alt="" />
     <p id="lightbox-caption"></p>
   </div>
@@ -68,7 +71,7 @@
     <p>©️ 2025 Blind w Beauty. All rights reserved.</p>
   </footer>
 
-  <!-- Minimal Lightbox JS -->
+  <!-- Minimal JS for lightbox -->
   <script>
     function openLightbox(src, caption) {
       const lb = document.getElementById('lightbox');
@@ -81,7 +84,6 @@
       lb.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
     }
-
     function closeLightbox() {
       const lb = document.getElementById('lightbox');
       const img = document.getElementById('lightbox-img');
@@ -90,10 +92,11 @@
       img.src = '';
       document.body.style.overflow = '';
     }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeLightbox();
-    });
+    // close on ESC
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
   </script>
+
+  <!-- re-use your site script.js (dark mode, animations) -->
+  <script src="script.js"></script>
 </body>
 </html>
