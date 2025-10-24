@@ -72,12 +72,20 @@
   <!-- CONTACT / APPOINTMENT -->
   <section id="contact" class="hidden">
     <h2>Book an Appointment</h2>
-    <form id="contact-form">
-      <input type="text" name="name" placeholder="Name" required />
-      <input type="tel" name="phone" placeholder="Phone" required />
-      <textarea name="message" placeholder="Message" required></textarea>
-      <button type="submit">Book Now</button>
-    </form>
+    <form action="https://formspree.io/f/xeorybbv" method="POST">
+  <input type="text" name="name" placeholder="Name" required />
+  <input type="tel" name="phone" placeholder="Phone" required />
+  <textarea name="message" placeholder="Message" required></textarea>
+  
+  <!-- optional hidden field for email subject -->
+  <input type="hidden" name="_subject" value="New Appointment Request">
+  
+  <!-- optional field to redirect after submit -->
+  <input type="hidden" name="_redirect" value="https://devnovamike.github.io/blind-w-beauty/thank-you.html">
+
+  <button type="submit">Book Now</button>
+</form>
+<p id="status"></p>
     <p id="status" style="text-align:center;font-weight:bold;margin-top:10px;"></p>
   </section>
 
