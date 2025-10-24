@@ -300,96 +300,94 @@ footer {
   background-color: #7a33cc;
 }
 
-/* ===========================
-   REVIEW HAIR & NAIL GALLERY
-   =========================== */
-
-.review-gallery {
+/* --- Gallery Cards --- */
+.nail-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 18px;
-  margin: 30px auto;
-  max-width: 1100px;
-  padding: 0 16px;
-}
-
-.review-card {
-  background: rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(155, 77, 255, 0.2);
-  border-radius: 10px;
-  overflow: hidden;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.review-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 20px rgba(179, 0, 59, 0.4);
-}
-
-.review-card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  display: block;
-  border-bottom: 1px solid rgba(155, 77, 255, 0.2);
-}
-
-.review-card h3 {
-  color: #fff;
-  margin: 10px 0 5px;
-}
-
-.review-card p {
-  color: #ddd;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
-}
-
-/* Lightbox (shared between hair and nail pages) */
-.review-lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 9999;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  justify-items: center;
   padding: 20px;
 }
 
-.review-lightbox img {
-  max-width: 90%;
-  max-height: 70vh;
-  border-radius: 10px;
-  margin-bottom: 12px;
+.gallery-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-width: 320px;
 }
 
-.review-lightbox p {
-  color: #fff;
+.gallery-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-.review-lightbox .close-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: transparent;
+.gallery-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.gallery-card h3 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 10px 0 5px;
+  color: #4b2e83; /* your site purple */
+}
+
+.gallery-card p {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  color: #555;
+  padding: 0 10px 15px;
+}
+
+/* Buttons inside gallery cards */
+.img-btn {
   border: none;
-  color: #fff;
-  font-size: 1.8rem;
+  background: none;
   cursor: pointer;
+  padding: 0;
 }
 
-/* Responsive tweaks */
-@media (min-width: 640px) {
-  .review-gallery img {
-    height: 200px;
-  }
+/* --- Lightbox --- */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
 }
 
-@media (min-width: 1000px) {
-  .review-gallery img {
-    height: 230px;
+.lightbox img, .lightbox video {
+  max-width: 90%;
+  max-height: 80vh;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.lb-close {
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+/* --- Mobile view: 1 card per row --- */
+@media (max-width: 600px) {
+  .nail-gallery {
+    grid-template-columns: 1fr;
   }
 }
