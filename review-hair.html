@@ -26,10 +26,10 @@
       <a class="back-link" href="index.html" aria-label="Back to homepage">← Back to Services</a>
     </section>
 
-    <!-- Hair gallery grid -->
-    <section class="nail-gallery" aria-label="Hair styling gallery">
+    <!-- ✅ Updated to match style.css (.review-gallery) -->
+    <section class="review-gallery" aria-label="Hair styling gallery">
       <!-- First card with video -->
-      <article class="gallery-card">
+      <article class="review-card">
         <button class="img-btn" onclick="openLightbox('videos/S-hair.mp4','Soft Balayage Blend', true)">
           <img src="images/shair-thumb.jpg" alt="Soft Balayage Blend" />
         </button>
@@ -37,7 +37,7 @@
         <p>Natural sun-kissed tones for effortless everyday beauty.</p>
       </article>
 
-      <article class="gallery-card">
+      <article class="review-card">
         <button class="img-btn" onclick="openLightbox('images/hair2.jpg','Vibrant Red Transformation')">
           <img src="images/hair2-thumb.jpg" alt="Vibrant Red Transformation" />
         </button>
@@ -45,7 +45,7 @@
         <p>Bold, fiery hues that demand attention and confidence.</p>
       </article>
 
-      <article class="gallery-card">
+      <article class="review-card">
         <button class="img-btn" onclick="openLightbox('images/hair3.jpg','Sleek Straight Finish')">
           <img src="images/hair3-thumb.jpg" alt="Sleek Straight Finish" />
         </button>
@@ -56,10 +56,9 @@
   </main>
 
   <!-- Lightbox (supports both image & video) -->
-  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
-    <button class="lb-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+  <div id="lightbox" class="review-lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="close-btn" onclick="closeLightbox()" aria-label="Close">✕</button>
     <img id="lightbox-img" src="" alt="" />
-    <!-- ✅ Video is now muted by default -->
     <video id="lightbox-video" controls muted style="display:none; max-width:90%; border-radius:10px;"></video>
     <p id="lightbox-caption"></p>
   </div>
@@ -68,56 +67,49 @@
     <p>©️ 2025 Blind w Beauty. All rights reserved.</p>
   </footer>
 
+  <!-- Minimal JS for lightbox -->
   <script>
-  function openLightbox(src, caption, isVideo = false) {
-    const lb = document.getElementById('lightbox');
-    const img = document.getElementById('lightbox-img');
-    const video = document.getElementById('lightbox-video');
-    const cap = document.getElementById('lightbox-caption');
+    function openLightbox(src, caption, isVideo = false) {
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      const video = document.getElementById('lightbox-video');
+      const cap = document.getElementById('lightbox-caption');
 
-    if (isVideo) {
-      img.style.display = 'none';
-      video.style.display = 'block';
-      video.src = src;
-      video.muted = true;              // ✅ force muted before play
-      video.volume = 0;                // ✅ double ensure no sound
-      video.setAttribute('muted', ''); // ✅ browser-level enforcement
-      video.play().then(() => {
-        video.muted = true;            // ✅ reapply after autoplay start
+      if (isVideo) {
+        img.style.display = 'none';
+        video.style.display = 'block';
+        video.src = src;
+        video.muted = true;
         video.volume = 0;
-      }).catch(err => {
-        console.warn('Autoplay blocked:', err);
-      });
-    } else {
-      video.style.display = 'none';
-      img.style.display = 'block';
-      img.src = src;
+        video.play().catch(() => {});
+      } else {
+        video.style.display = 'none';
+        img.style.display = 'block';
+        img.src = src;
+      }
+
+      cap.textContent = caption || '';
+      lb.style.display = 'flex';
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
     }
 
-    cap.textContent = caption || '';
-    lb.style.display = 'flex';
-    lb.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
+    function closeLightbox() {
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      const video = document.getElementById('lightbox-video');
+      lb.style.display = 'none';
+      lb.setAttribute('aria-hidden', 'true');
+      img.src = '';
+      video.pause();
+      video.currentTime = 0;
+      video.src = '';
+      document.body.style.overflow = '';
+    }
 
-  function closeLightbox() {
-    const lb = document.getElementById('lightbox');
-    const img = document.getElementById('lightbox-img');
-    const video = document.getElementById('lightbox-video');
-    lb.style.display = 'none';
-    lb.setAttribute('aria-hidden', 'true');
-    img.src = '';
-    video.pause();
-    video.currentTime = 0;
-    video.src = '';
-    document.body.style.overflow = '';
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLightbox();
-  });
-</script>
-
-  <script src="script.js"></script>
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
 </body>
 </html>
