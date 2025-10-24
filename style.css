@@ -169,23 +169,33 @@ button:hover:not(:disabled) {
 }
 
 /* ===========================
-   GALLERY IMAGE STYLING
+   GALLERY IMAGE STYLING 
    =========================== */
 .gallery-card {
   background: rgba(0,0,0,0.45);
-  padding: 14px;
-  border-radius: 8px;           /* slightly rounded corners */
-  border: 2px solid #9b4dff;    /* purple outline */
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #9b4dff; /* purple outline */
   text-align: center;
+  width: 200px;               /* fixed width for side-by-side layout */
+  flex: 0 0 auto;             /* prevents stretching in flex/grid */
 }
 
 .gallery-card img {
   width: 100%;
-  height: 200px;                 /* rectangular shape */
+  height: 120px;               /* shorter rectangular images */
   object-fit: cover;
-  border-radius: 6px;            /* optional small rounding */
+  border-radius: 6px;          /* slight rounding */
   display: block;
-  border: 1px solid #9b4dff;    /* thin purple border around the image */
+  border: 1px solid #9b4dff;  /* thin purple border around image */
+}
+
+/* Adjust gallery container to display cards in a row */
+.nail-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
 }
 /* ===========================
   SCROLL ANIMATIONS
