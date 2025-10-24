@@ -1,28 +1,32 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxkvxSQYyvCD3omOK6crkgeyrxt1jY62EeXO9jzm6hdJ8UgE3mkpB7B9FVlI1QZJNzY/exec";
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("form[action^='https://formspree.io/f/xeorybbv']");
+  const status = document.getElementById("status");
+  const button = form.querySelector("button");
 
-document.getElementById("contact-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    status.textContent = "Sending...";
+    button.disabled = true;
+    button.textContent = "Booking...";
 
-  const name = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const message = document.getElementById("message").value.trim();
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
 
-  const formData = { name, phone, message };
-  console.log("🚀 Sending data:", formData);
-
-  try {
-    const response = await fetch(SCRIPT_URL, {
-      method: "POST",
-      mode: "cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    const result = await response.json();
-    console.log("✅ Success:", result);
-    alert("Message sent!");
-  } catch (error) {
-    console.error("❌ Fetch error:", error);
-    alert("Something went wrong.");
-  }
+      if (response.ok) {
+        status.textContent = "✅ Appointment sent successfully!";
+        form.reset();
+      } else {
+        status.textContent = "❌ Something went wrong. Please try again.";
+      }
+    } catch (error) {
+      status.textContent = "⚠️ Network error. Please try again later.";
+    } finally {
+      button.disabled = false;
+      button.textContent = "Book Now";
+    }
+  });
 });
