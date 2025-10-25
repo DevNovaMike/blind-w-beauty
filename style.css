@@ -289,6 +289,7 @@ border-radius: 8px;
 display: grid;
 grid-template-columns: repeat(1, 1fr);
 gap: 18px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
 .gallery-card {
