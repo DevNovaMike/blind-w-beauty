@@ -101,23 +101,41 @@
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  background:#fff;
-  color:#000;
-  padding:25px 40px;
+  background:linear-gradient(135deg,#2b0040,#4a0072);
+  color:#fff;
+  padding:30px 40px;
   border-radius:15px;
   text-align:center;
   z-index:10000;
-  box-shadow:0 4px 10px rgba(0,0,0,0.3);
+  box-shadow:0 4px 15px rgba(0,0,0,0.4);
+  width:80%;
+  max-width:350px;
+  font-family:'Poppins',sans-serif;
 ">
-  <h3>Follow Us 💖</h3>
-  <p>Stay connected and see our latest work!</p>
-  <div style="margin-top:15px; display:flex; justify-content:center; align-items:center; gap:10px;">
-    <span style="font-weight:600;">@phantom_940</span>
-    <a href="https://www.instagram.com/phantom_940?igsh=MTZtZWF6cG50aHQwZQ%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram" style="font-size:24px;color:#E1306C;">
+  <h3 style="margin:0;font-size:22px;font-weight:600;">Follow Us 💖</h3>
+  <p style="margin:10px 0 20px;font-size:14px;color:#ddd;">
+    Stay connected and see our latest work!
+  </p>
+  <div style="display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:15px;">
+    <span style="font-weight:600;font-size:16px;">@phantom_940</span>
+    <a href="https://www.instagram.com/phantom_940?igsh=MTZtZWF6cG50aHQwZQ%3D%3D&utm_source=qr"
+       target="_blank"
+       aria-label="Instagram"
+       style="font-size:26px;color:#E1306C;transition:transform 0.3s ease;">
       <i class="fab fa-instagram"></i>
     </a>
   </div>
-  <button onclick="closeSocials()" style="margin-top:20px;padding:8px 15px;border:none;border-radius:8px;background:#222;color:#fff;cursor:pointer;">
+  <button onclick="closeSocials()" style="
+    background:#E1306C;
+    color:#fff;
+    border:none;
+    padding:10px 20px;
+    border-radius:8px;
+    font-weight:600;
+    cursor:pointer;
+    transition:background 0.3s ease;
+  " onmouseover="this.style.background='#ff4d88'"
+     onmouseout="this.style.background='#E1306C'">
     Close
   </button>
 </div>
